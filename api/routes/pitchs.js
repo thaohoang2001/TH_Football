@@ -1,5 +1,5 @@
 import express from "express";
-import { createPitch, deletePitch, getAllPitch, getPitch, updatePitch, countByCity, countByType } from "../controllers/pitchController.js";
+import { createPitch, deletePitch, getAllPitch, getPitch, updatePitch } from "../controllers/pitchController.js";
 import { verifyAdmin } from "../ultis/verifyToken.js";
 
 const router = express.Router();
@@ -19,7 +19,6 @@ router.get("/find/:id", getPitch)
 //get all
 router.get("/", getAllPitch)
 
-router.get("/countByCity", countByCity)
-router.get("/countByType", countByType)
+
 
 export default router

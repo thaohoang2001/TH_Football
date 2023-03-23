@@ -55,30 +55,4 @@ export const getAllPitch = async (req, res, next) => {
     }
 }
 
-export const countByCity = async (req, res, next) => {
-    const cities = req.query.cities.split(",")
-    try {
-        const list = await Promise.all(cities.map(city => {
-            return Pitch.countDocuments({ city: city })
-        }))
-        res.status(200).json(list);
-    } catch (err) {
-        next(err);
-    }
-}
 
-export const countByType = async (req, res, next) => {
-    try {
-        const pitch5Count = await Pitch.countDocuments({ type: "pitch5" })
-        const pitch7Count = await Pitch.countDocuments({ type: "pitch7" })
-        const pitch11Count = await Pitch.countDocuments({ type: "pitch11" })
-
-        res.status(200).json([
-            { type: "pitch5", count: pitch5Count },
-            { type: "pitch7", count: pitch7Count },
-            { type: "pitch11", count: pitch11Count },
-        ]);
-    } catch (err) {
-        next(err);
-    }
-}

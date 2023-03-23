@@ -9,7 +9,7 @@ const PitchSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    city: {
+    district: {
         type: String,
         required: true,
     },
@@ -49,6 +49,10 @@ const PitchSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    userId: {
+        type: String,
+        required: true,
+    }
 
 });
 

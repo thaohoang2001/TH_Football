@@ -1,26 +1,31 @@
 import mongoose from 'mongoose';
 
 const childPitchSchema = new mongoose.Schema({
-    title: { 
+    title: {
         type: String,
         required: true,
     },
-    price:{
+    price: {
         type: Number,
         required: true,
     },
-    maxPeople:{
+    maxPeople: {
         type: Number,
         required: true,
     },
-    desc:{
+    desc: {
         type: String,
         required: true,
     },
-    childPitchNumbers:[{number:Number, unavailableDates: {type: [Date]} }],
-    
+    // orderTime: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'orderTime',
+    // }],
+
+    childPitchNumbers: [{ number: Number, unavailableDates: { type: [Date] } }],
+
 },
-    {timestamps: true}
+    { timestamps: true }
 );
 
 

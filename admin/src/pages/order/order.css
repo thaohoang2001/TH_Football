@@ -1,0 +1,35 @@
+.orders {
+  display: flex;
+}
+
+.orders .ordersContainer{
+  flex: 6;
+}
+
+.order .cellWrapper {
+  display: flex;
+  align-items: center;
+}
+.order .cellWrapper .image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+.order .status {
+  padding: 5px;
+  border-radius: 5px;
+}
+.order .status.Approved {
+  color: green;
+  background-color: rgba(0, 128, 0, 0.151);
+}
+.order .status.Pending {
+  color: goldenrod;
+  background-color: rgba(189, 189, 3, 0.103);
+}
+.order .status.NotPaid {
+  color: goldenrod;
+  background-color: rgba(189, 3, 3, 0.103);
+}

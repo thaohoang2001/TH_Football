@@ -35,6 +35,22 @@ export const updateChildPitch = async (req, res, next) => {
     }
 }
 
+export const updateChildPitchAvailability = async (req, res, next) => {
+    try {
+      await ChildPitch.updateOne(
+        { "childPitchNumbers._id": req.params.id },
+        {
+          $push: {
+            "childPitchNumbers.$.unavailableDates": req.body.dates
+          },
+        }
+      );
+      res.status(200).json("childPitch status has been updated.");
+    } catch (err) {
+      next(err);
+    }
+  };
+
 //delete
 export const deleteChildPitch = async (req, res, next) => {
     const pitchId = req.params.pitchid;
@@ -75,4 +91,20 @@ export const getAllchildPitch = async (req, res, next) => {
      } catch (err) {
         next(err);
      }
+}
+
+export const countByType = async (req, res, next) => {
+    try {
+        const pitch5Count = await Pitch.countDocuments({ type: "pitch5" })
+        const pitch7Count = await Pitch.countDocuments({ type: "pitch7" })
+        const pitch11Count = await Pitch.countDocuments({ type: "pitch11" })
+
+        res.status(200).json([
+            { type: "pitch5", count: pitch5Count },
+            { type: "pitch7", count: pitch7Count },
+            { type: "pitch11", count: pitch11Count },
+        ]);
+    } catch (err) {
+        next(err);
+    }
 }
