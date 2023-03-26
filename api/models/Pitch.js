@@ -38,9 +38,6 @@ const PitchSchema = new mongoose.Schema({
         min: 0,
         max: 5,
     },
-    childPitchs: {
-        type: [String],
-    },
     cheapestPrice: {
         type: Number,
         required: true,

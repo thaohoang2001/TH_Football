@@ -16,7 +16,7 @@ const ConversationSchema = new mongoose.Schema({
     },
     readByStaff: {
         type: Boolean,
-        // required: true,
+        required: true,
     },
     readByCustomer: {
         type: Boolean,

@@ -5,10 +5,10 @@ import cookieParser from 'cookie-parser';
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import pitchsRoute from "./routes/pitchs.js";
-import childPitchsRoute from "./routes/childPitchs.js";
 // import adminRoute from "./routes/admins.js";
 import orderRoute from "./routes/order.js";
 import conversationRoute from "./routes/conversation.js";
+import reviewRoute from "./routes/review.js";
 import cors from "cors";
 
 const app = express();
@@ -53,10 +53,10 @@ app.use(cors({
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/pitchs', pitchsRoute);
-app.use('/api/childPitchs', childPitchsRoute);
 // app.use('/api/admins', adminRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/conversations', conversationRoute);
+app.use('/api/reviews', reviewRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;

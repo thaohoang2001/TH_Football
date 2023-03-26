@@ -1,12 +1,12 @@
 import Conversation from "../models/Conversation.js";
 
 export const createConversation = async (req, res, next) => {
-  console.log(req.isAdmin ,1111111111111111111);
-  console.log(req.userId , 22222222222222);
+  console.log("isAdmin: ", req.isAdmin);
+  console.log("userId: ", req.userId);
     const newConversation = new Conversation({
         id: req.isAdmin ? req.userId + req.body.to : req.body.to + req.userId,
         staffId: req.isAdmin ? req.userId : req.body.to,
-        customerId: req.isAdmin ?  "640b4e8d64f51e413999e13" : "640b4e8d64f51e413999e13",
+        customerId: req.isAdmin ?  req.body.to : req.userId,
         readByStaff: req.isAdmin,
         readByCustomer: !req.isAdmin,
     });
