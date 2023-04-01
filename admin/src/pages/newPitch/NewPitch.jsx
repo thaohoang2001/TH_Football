@@ -10,21 +10,13 @@ import axios from "axios";
 const NewPitch = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
-  const [childPitchs, setChildPitchs] = useState([]);
 
-  const { data, loading, error } = useFetch("/childPitchs");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleSelect = (e) => {
-    const value = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setChildPitchs(value);
-  };
+
   
   console.log(files)
 
@@ -48,7 +40,6 @@ const NewPitch = () => {
 
       const newpitch = {
         ...info,
-        childPitchs,
         photos: list,
       };
 
@@ -107,7 +98,7 @@ const NewPitch = () => {
                   <option value={true}>Yes</option>
                 </select>
               </div>
-              <div className="selectChildPitch">
+              {/* <div className="selectChildPitch">
                 <label>ChildPitch</label>
                 <select id="childPitchs" multiple onChange={handleSelect}>
                   {loading
@@ -119,7 +110,7 @@ const NewPitch = () => {
                         </option>
                       ))}
                 </select>
-              </div>
+              </div> */}
               <button onClick={handleClick}>Send</button>
             </form>
           </div>

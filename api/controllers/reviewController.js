@@ -3,8 +3,8 @@ import Review from "../models/Review.js";
 import Pitch from "../models/Pitch.js";
 
 export const createReview = async (req, res, next) => {
-  if (req.isAdmin)
-    return next(createError(403, "Staff can't create a review!"));
+  // if (req.isAdmin)
+  //   return next(createError(403, "Staff can't create a review!"));
 
   const newReview = new Review({
     userId: req.userId,
@@ -19,10 +19,10 @@ export const createReview = async (req, res, next) => {
       userId: req.userId,
     });
 
-    if (review)
-      return next(
-        createError(403, "You have already created a review for this Pitch!")
-      );
+    // if (review)
+    //   return next(
+    //     createError(403, "You have already created a review for this Pitch!")
+    //   );
 
     //TODO: check if the user purchased the pitch.
 

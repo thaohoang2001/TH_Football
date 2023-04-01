@@ -46,10 +46,9 @@ const PitchSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    userId: {
-        type: String,
-        required: true,
-    }
+    childPitchs: {
+        type: [String],
+    },
 
 });
 

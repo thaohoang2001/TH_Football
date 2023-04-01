@@ -76,8 +76,8 @@ export const userColumns = [
     },
   
     {
-      field: "city",
-      headerName: "City",
+      field: "district",
+      headerName: "District",
       width: 100,
     },
 
@@ -93,7 +93,7 @@ export const userColumns = [
     {
       field: "desc",
       headerName: "Description",
-      width: 350,
+      width: 200,
     },
     {
       field: "price",

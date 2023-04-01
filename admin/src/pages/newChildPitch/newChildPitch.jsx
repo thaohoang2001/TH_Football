@@ -1,6 +1,7 @@
-import "./newchildPitch.css";
+import "./newChildPitch.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { childPitchInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
@@ -9,7 +10,7 @@ import axios from "axios";
 const NewChildPitch = () => {
   const [info, setInfo] = useState({});
   const [pitchId, setPitchId] = useState(undefined);
-  const [childPitchs, setChildPitchs] = useState([]);
+  const [childPitchs, setchildPitchs] = useState([]);
 
   const { data, loading, error } = useFetch("/pitchs");
 
@@ -53,7 +54,7 @@ const NewChildPitch = () => {
               <div className="formInput">
                 <label>ChildPitchs</label>
                 <textarea
-                  onChange={(e) => setChildPitchs(e.target.value)}
+                  onChange={(e) => setchildPitchs(e.target.value)}
                   placeholder="give comma between childPitch numbers."
                 />
               </div>

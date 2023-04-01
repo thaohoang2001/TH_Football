@@ -51,7 +51,7 @@ const Sidebar = () => {
           <Link to="/childPitchs" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>childPitch</span>
+              <span>ChildPitch</span>
             </li>
           </Link>
           <Link to="/order" style={{ textDecoration: "none" }}>

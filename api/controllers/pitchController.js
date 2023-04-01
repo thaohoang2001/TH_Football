@@ -1,3 +1,4 @@
+import ChildPitch from "../models/ChildPitch.js";
 import Pitch from "../models/Pitch.js";
 
 export const createPitch = async (req, res, next) => {
@@ -55,4 +56,16 @@ export const getAllPitch = async (req, res, next) => {
     }
 }
 
-
+export const getPitchOfChildPitch = async (req, res, next) => {
+    try {
+      const pitch = await Pitch.findById(req.params.id);
+      const list = await Promise.all(
+        pitch.childPitchs.map((childPitch) => {
+          return ChildPitch.findById(childPitch);
+        })
+      );
+      res.status(200).json(list)
+    } catch (err) {
+      next(err);
+    }
+  };

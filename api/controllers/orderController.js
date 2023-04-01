@@ -81,3 +81,14 @@ export const getOrders = async (req, res, next) => {
     next(err);
   }
 }
+
+export const deleteOrder = async (req, res, next) => {
+  try {
+      await Order.findByIdAndDelete(
+          req.params.id
+      );
+      res.status(200).json("Order has been deleted");
+  } catch (err) {
+      next(err);
+  }
+}

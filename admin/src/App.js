@@ -8,11 +8,12 @@ import { userInputs } from "./formSource";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import {
-  pitchColumns,
   childPitchColumns,
+  pitchColumns,
   userColumns,
 } from "./datatablesource";
 import NewPitch from "./pages/newPitch/NewPitch";
+import UpdatePitch from "./pages/updatePitch/UpdatePitch";
 import NewChildPitch from "./pages/newChildPitch/newChildPitch";
 
 function App() {
@@ -65,6 +66,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              {/* <Route
+                path="update"
+                element={
+                  <ProtectedRoute>
+                    <New inputs={userInputs} title="Update New User" />
+                  </ProtectedRoute>
+                }
+              /> */}
             </Route>
             <Route path="pitchs">
               <Route
@@ -88,6 +97,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <NewPitch />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="update/:idPitch"
+                element={
+                  <ProtectedRoute>
+                    <UpdatePitch />
                   </ProtectedRoute>
                 }
               />

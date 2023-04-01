@@ -21,6 +21,7 @@ export const userInputs = [
     id: "password",
     label: "Password",
     type: "password",
+    placeholder: "******",
   },
   {
     id: "country",
@@ -82,8 +83,8 @@ export const pitchInputs = [
     placeholder: "pitch",
   },
   {
-    id: "city",
-    label: "City",
+    id: "district",
+    label: "District",
     type: "text",
     placeholder: "My Dinh",
   },
@@ -124,13 +125,13 @@ export const childPitchInputs = [
     id: "title",
     label: "Title",
     type: "text",
-    placeholder: "pitch 5 of small",
+    placeholder: "2 childPitch",
   },
   {
     id: "desc",
     label: "Description",
     type: "text",
-    placeholder: "Have any people play together",
+    placeholder: "Something desc in childPitch",
   },
   {
     id: "price",

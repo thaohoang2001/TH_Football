@@ -5,19 +5,19 @@ const MatchingSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userIdMatch: {
+        type: String,
+        required: true,
+    },
     pitchId: {
         type: String,
         required: true,
     },
-    date: {
+    createDateAt: {
         type: String,
         required: true,
     },
-    time: {
-        type: String,
-        required: true,
-    },
-    img: {
+    timeFB: {
         type: String,
         required: true,
     },
@@ -25,11 +25,7 @@ const MatchingSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    rating: {
-        type: Number,
-        required: true,
-    },
-
+    
 });
 
 export default mongoose.model('Matching', MatchingSchema);
