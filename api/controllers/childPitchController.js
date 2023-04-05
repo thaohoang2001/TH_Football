@@ -2,7 +2,7 @@ import ChildPitch from "../models/ChildPitch.js";
 import Pitch from "../models/Pitch.js";
 
 export const createChildPitch = async (req, res, next) => {
-  const pitchId = req.params.pitchId;
+  const pitchId = req.params.pitchid;
   const newChildPitch = new ChildPitch(req.body);
 
   try {
@@ -22,16 +22,17 @@ export const createChildPitch = async (req, res, next) => {
 
 export const updateChildPitch = async (req, res, next) => {
   try {
-    const updatedChildPitch = await ChildPitch.findByIdAndUpdate(
+    const updatedChildPitchs = await ChildPitch.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       { new: true }
     );
-    res.status(200).json(updatedChildPitch);
+    res.status(200).json(updatedChildPitchs);
   } catch (err) {
     next(err);
   }
 };
+
 export const updateChildPitchAvailability = async (req, res, next) => {
   try {
     await ChildPitch.updateOne(
@@ -48,12 +49,12 @@ export const updateChildPitchAvailability = async (req, res, next) => {
   }
 };
 export const deleteChildPitch = async (req, res, next) => {
-  const pitchId = req.params.pitchId;
+  const pitchId = req.params.pitchid;
   try {
     await ChildPitch.findByIdAndDelete(req.params.id);
     try {
       await Pitch.findByIdAndUpdate(pitchId, {
-        $pull: { childPitchNumbers: req.params.id },
+        $pull: { childPitchs: req.params.id },
       });
     } catch (err) {
       next(err);

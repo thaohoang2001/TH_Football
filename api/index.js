@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import pitchsRoute from "./routes/pitchs.js";
-// import adminRoute from "./routes/admins.js";
+import childPitchsRoute from "./routes/childPitch.js"
 import orderRoute from "./routes/order.js";
 import conversationRoute from "./routes/conversation.js";
 import messageRoute from "./routes/message.js";
@@ -54,6 +54,7 @@ app.use(cors({
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/pitchs', pitchsRoute);
+app.use('/api/childPitchs', childPitchsRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/conversations', conversationRoute);
 app.use('/api/messages', messageRoute);

@@ -31,7 +31,7 @@ const TableData = ({columns}) => {
         return (
           <div className="cellAction">
             <Link to={`/${path}/update/${params?.id} `} style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+              <div className="viewButton">Update</div>
             </Link>
             <div
               className="deleteButton"

@@ -8,7 +8,8 @@ router.post("/:pitchid", verifyAdmin, createChildPitch);
 
 //UPDATE
 router.put("/availability/:id", updateChildPitchAvailability);
-router.put("/:id", verifyAdmin, updateChildPitch);
+
+router.put("/:id", updateChildPitch);
 //DELETE
 router.delete("/:id/:pitchid", verifyAdmin, deleteChildPitch);
 //GET

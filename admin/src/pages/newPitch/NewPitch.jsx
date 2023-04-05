@@ -6,18 +6,17 @@ import { useState } from "react";
 import { pitchInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NewPitch = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
-
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-
-  
   console.log(files)
 
   const handleClick = async (e) => {
@@ -44,6 +43,7 @@ const NewPitch = () => {
       };
 
       await axios.post("/pitchs", newpitch);
+      navigate("/pitchs");
     } catch (err) {console.log(err)}
   };
   return (

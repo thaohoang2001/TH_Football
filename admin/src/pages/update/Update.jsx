@@ -2,12 +2,16 @@ import "./update.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Update = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
+  const { idUser } = useParams();
+  const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -31,11 +35,23 @@ const Update = ({ inputs, title }) => {
         img: url,
       };
 
-      await axios.post("/auth/register", updateUser);
+      await axios.put(`/auth/${idUser}`, updateUser);
+      navigate("/users")
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      if (idUser) {
+        const resp = await axios.get(`/auth/find/${idUser}`);
+        if (resp) {
+          setInfo(resp?.data);
+        }
+      }
+    })();
+  }, []);
 
   console.log(info);
   return (
@@ -79,6 +95,7 @@ const Update = ({ inputs, title }) => {
                     type={input.type}
                     placeholder={input.placeholder}
                     id={input.id}
+                    value={info[input.id]}
                   />
                 </div>
               ))}

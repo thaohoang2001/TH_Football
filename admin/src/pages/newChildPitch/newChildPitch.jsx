@@ -1,16 +1,18 @@
 import "./newChildPitch.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { childPitchInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NewChildPitch = () => {
   const [info, setInfo] = useState({});
   const [pitchId, setPitchId] = useState(undefined);
   const [childPitchs, setchildPitchs] = useState([]);
+
+  const navigate = useNavigate();
 
   const { data, loading, error } = useFetch("/pitchs");
 
@@ -23,6 +25,7 @@ const NewChildPitch = () => {
     const childPitchNumbers = childPitchs.split(",").map((childPitch) => ({ number: childPitch }));
     try {
       await axios.post(`/childPitchs/${pitchId}`, { ...info, childPitchNumbers });
+      navigate("/childPitchs");
     } catch (err) {
       console.log(err);
     }
@@ -59,7 +62,7 @@ const NewChildPitch = () => {
                 />
               </div>
               <div className="formInput">
-                <label>Choose a childPitch</label>
+                <label>Choose a Pitch</label>
                 <select
                   id="pitchId"
                   onChange={(e) => setPitchId(e.target.value)}

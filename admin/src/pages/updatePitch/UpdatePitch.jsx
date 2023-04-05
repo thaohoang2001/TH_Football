@@ -5,14 +5,13 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useEffect, useState } from "react";
 import { pitchInputs } from "../../formSource";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdatePitch = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
-  const location = useLocation();
   const { idPitch } = useParams();
-  const [pitchEdit, setPitchEdit] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -43,6 +42,7 @@ const UpdatePitch = () => {
       };
 
       await axios.put(`/pitchs/${idPitch}`, updatepitch);
+      navigate("/pitchs");
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +54,6 @@ const UpdatePitch = () => {
         const resp = await axios.get(`/pitchs/find/${idPitch}`);
         if (resp) {
           setInfo(resp?.data);
-          setPitchEdit(resp?.data);
         }
       }
     })();
@@ -102,7 +101,7 @@ const UpdatePitch = () => {
                     onChange={handleChange}
                     type={input.type}
                     placeholder={input.placeholder}
-                    value={pitchEdit[input.id]}
+                    value={info[input.id]}
                   />
                 </div>
               ))}

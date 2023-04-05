@@ -1,0 +1,90 @@
+.navbar {
+  height: 50px;
+  background-color: #003580;
+  display: flex;
+  justify-content: center;
+}
+
+.navContainer {
+  width: 100%;
+  max-width: 1024px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.headerBtnIn {
+  background-color: #0071c2;
+  color: white;
+  font-weight: 500;
+  padding: 10px;
+  cursor: pointer;
+  margin-left: 750px;
+  border-radius: 15px;
+  border: 1.5px solid #003580;
+  background-image: linear-gradient(#0d113996 0 0);
+  background-size: 200% .08em; /* .08em is our fixed height, use what you want  */
+  background-position: 200% 100%;
+  background-repeat: no-repeat;
+  transition: background-size .3s, background-position .3s .3s;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.headerBtnOut {
+  background-color: #0071c2;
+  color: white;
+  font-weight: 500;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  border: 1.5px solid #003580;
+  background-image: linear-gradient(#d0c2c298 0 0);
+  background-size: 200% .08em; /* .08em is our fixed height, use what you want  */
+  background-position: 200% 100%;
+  background-repeat: no-repeat;
+  transition: background-size .3s, background-position .3s .3s;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.headerBtnIn:hover {
+  transition: background-size .3s .3s, background-position .3s;
+  background-size: 200% 100%;
+  background-position: 100% 100%;
+}
+
+.headerBtnOut:hover {
+  transition: background-size .3s .3s, background-position .3s;
+  background-size: 200% 100%;
+  background-position: 100% 100%;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.headerCart {
+  cursor: pointer;
+  background-image: linear-gradient(#d0c2c298 0 0);
+  background-size: 200% .08em; /* .08em is our fixed height, use what you want  */
+  background-position: 200% 100%;
+  background-repeat: no-repeat;
+  transition: background-size .3s, background-position .3s .3s;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.headerCart:hover {
+  transition: background-size .3s .3s, background-position .3s;
+  background-size: 200% 100%;
+  background-position: 100% 100%;
+  
+}

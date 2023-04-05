@@ -15,6 +15,9 @@ import {
 import NewPitch from "./pages/newPitch/NewPitch";
 import UpdatePitch from "./pages/updatePitch/UpdatePitch";
 import NewChildPitch from "./pages/newChildPitch/newChildPitch";
+import UpdateChildPitch from "./pages/updateChildPitch/UpdateChildPitch";
+import ListChildPitch from "./pages/listChildPitch/ListChildPitch";
+import Update from "./pages/update/Update";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
@@ -66,14 +69,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route
-                path="update"
+              <Route
+                path="update/:idUser"
                 element={
                   <ProtectedRoute>
-                    <New inputs={userInputs} title="Update New User" />
+                    <Update inputs={userInputs} title="Update New User" />
                   </ProtectedRoute>
                 }
-              /> */}
+              />
             </Route>
             <Route path="pitchs">
               <Route
@@ -114,7 +117,7 @@ function App() {
                 index
                 element={
                   <ProtectedRoute>
-                    <List columns={childPitchColumns} />
+                    <ListChildPitch columns={childPitchColumns} />
                   </ProtectedRoute>
                 }
               />
@@ -131,6 +134,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <NewChildPitch />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="update/:idChildPitch"
+                element={
+                  <ProtectedRoute>
+                    <UpdateChildPitch />
                   </ProtectedRoute>
                 }
               />
