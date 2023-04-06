@@ -1,6 +1,5 @@
 import {
   faCalendarDays,
-  faDroplet,
   faFootball,
   faLocation,
   faMagnifyingGlass,
@@ -16,12 +15,18 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { Link } from "react-router-dom";
+import DistrictData from "../../districtData.json";
 import useFetch from "../../hooks/useFetch";
 
 const Header = ({ type }) => {
   const [filteredData, setFilteredData] = useState([]);
 
   const [destination, setDestination] = useState("");
+
+  const dataDistrict = { DistrictData };
+
+  const {data} = useFetch();
+
   const [openDate, setOpenDate] = useState(false);
   const [dates, setDates] = useState([
     {
@@ -35,7 +40,7 @@ const Header = ({ type }) => {
     const searchWord = e.target.value;
     setDestination(searchWord);
     const newFilter = data.filter((value) => {
-      return value?.district.toLowerCase().includes(searchWord.toLowerCase()); 
+      return value.district.toLowerCase().includes(searchWord.toLowerCase());
     });
 
     if (searchWord === "") {
@@ -44,10 +49,6 @@ const Header = ({ type }) => {
       setFilteredData(newFilter);
     }
   };
-
-  const { data, loading, error, reFetch } = useFetch(
-    `/pitchs?district=${destination}`
-  );
 
   const navigate = useNavigate();
 
@@ -94,7 +95,7 @@ const Header = ({ type }) => {
             </p>
 
             <div className="headerSearch">
-              <div className="headerSearchItemWrapper">
+              {/* <div className="headerSearchItemWrapper"> */}
                 <div className="headerSearchItem">
                   <FontAwesomeIcon icon={faLocation} className="headerIcon" />
                   <input
@@ -106,16 +107,16 @@ const Header = ({ type }) => {
                     // onChange={(e) => setDestination(e.target.value)}
                   />
                 </div>
-                {console.log(data)}
 
                 {filteredData.length != 0 && (
                   <div className="headerDataResult">
-                    {data.map((value) => {
+                    {filteredData.slice(0, 15).map((value) => {
                       return <p> {value.district} </p>;
                     })}
                   </div>
                 )}
-              </div>
+                {console.log(filteredData)};
+              {/* </div> */}
 
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
