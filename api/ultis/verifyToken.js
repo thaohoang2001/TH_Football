@@ -10,27 +10,37 @@ export const verifyToken = (req, res, next) => {
     jwt.verify(token, process.env.JWT, (err, decoded) => {
         if(err)  return next(createError(403, "Token is not valid"))
         req.userId = decoded.id;
-        req.isAdmin = decoded.isAdmin;
+        req.role = decoded.role;
         next()
     })
 }
 
-export const verifyUser = (req, res, next) =>{
-    verifyToken(req, res, next, ()=>{
-        if(req.user.id === req.params.id || req.user.isAdmin) {
-            next()
-        } else {
-            if (err) return next(createError(403, "You are not authorized!"))
-        }
-    })
-}
+// export const verifyUser = (req, res, next) =>{
+//     verifyToken(req, res, next, ()=>{
+//         if(req.user.id === req.params.id || req.user.isAdmin) {
+//             next()
+//         } else {
+//             if (err) return next(createError(403, "You are not authorized!"))
+//         }
+//     })
+// }
 
-export const verifyAdmin = (req, res, next) =>{
-    verifyToken(req, res, next, ()=>{
-        if(req.user.isAdmin) {
-            next()
-        } else {
-            if (err) return next(createError(403, "You are not authorized!"))
-        }
-    })
-}
+// export const verifyAdmin = (req, res, next) =>{
+//     verifyToken(req, res, next, ()=>{
+//         if(req.user.isAdmin) {
+//             next()
+//         } else {
+//             if (err) return next(createError(403, "You are not authorized!"))
+//         }
+//     })
+// }
+
+// export const verifyStaff = (req, res, next) =>{
+//     verifyToken(req, res, next, ()=>{
+//         if(req.user.isAdmin) {
+//             next()
+//         } else {
+//             if (err) return next(createError(403, "You are not authorized!"))
+//         }
+//     })
+// }

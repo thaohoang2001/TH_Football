@@ -10,13 +10,11 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
 const Sidebar = () => {
-
   const { dispatch } = useContext(AuthContext);
 
   const handleClick = async () => {
-    dispatch({ type: "LOGOUT"});
-
-  }
+    dispatch({ type: "LOGOUT" });
+  };
 
   return (
     <div className="sidebar">
@@ -54,17 +52,17 @@ const Sidebar = () => {
               <span>ChildPitch</span>
             </li>
           </Link>
-          <Link to="/order" style={{ textDecoration: "none" }}>
+          {/* <Link to="/order" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
               <span>Orders</span>
             </li>
-          </Link>
-          <p className="title">USEFUL</p>
+          </Link> */}
+          {/* <p className="title">USEFUL</p>
           <li>
             <NotificationsNoneIcon className="icon" />
             <span>Notifications</span>
-          </li>
+          </li> */}
           <p className="title">USER</p>
           <li onClick={handleClick}>
             <ExitToAppIcon className="icon" />

@@ -149,3 +149,7 @@
   color: lightgray;
   cursor: pointer;
 }
+
+.formInputTimeFrame {
+  margin-right: 510px;
+}

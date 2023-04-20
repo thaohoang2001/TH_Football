@@ -1,14 +1,14 @@
 import Conversation from "../models/Conversation.js";
 
 export const createConversation = async (req, res, next) => {
-  console.log("isAdmin: ", req.isAdmin);
+  console.log("Staff: ", req.role);
   console.log("userId: ", req.userId);
     const newConversation = new Conversation({
-        id: req.isAdmin ? req.userId + req.body.to : req.body.to + req.userId,
-        staffId: req.isAdmin ? req.userId : req.body.to,
-        customerId: req.isAdmin ?  req.body.to : req.userId,
-        readByStaff: req.isAdmin,
-        readByCustomer: !req.isAdmin,
+        id: req.role == 'staff' ? req.userId + req.body.to : req.body.to + req.userId,
+        staffId: req.role == 'staff' ? req.userId : req.body.to,
+        customerId: req.role == 'staff' ?  req.body.to : req.userId,
+        readByStaff: req.role == 'staff',
+        readByCustomer: !req.role == 'staff',
     });
 
     try {
@@ -25,7 +25,7 @@ export const updateConversation = async (req, res, next) => {
         { id: req.params.id },
         {
           $set: {
-            ...(req.isAdmin ? { readByStaff: true } : { readByCustomer: true }),
+            ...(req.role == 'staff' ? { readByStaff: true } : { readByCustomer: true }),
           },
         },
         { new: true }
@@ -50,7 +50,7 @@ export const updateConversation = async (req, res, next) => {
   export const getConversations = async (req, res, next) => {
     try {
       const conversations = await Conversation.find(
-        req.isAdmin ? { staffId: req.userId } : { customerId: req.userId }
+        req.role ? { staffId: req.userId } : { customerId: req.userId }
       ).sort({ updatedAt: -1 });
       res.status(200).send(conversations);
     } catch (err) {

@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
-const TableDataChildPitch = ({columns}) => {
+const TableDataChildPitch = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
   const { data } = useFetch(`/${path}`);
-  const {pitchId} = useParams();
+  const { pitchId } = useParams();
 
   useEffect(() => {
     setList(data);
@@ -22,7 +22,7 @@ const TableDataChildPitch = ({columns}) => {
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };
-  
+
   const actionColumn = [
     {
       field: "action",
@@ -31,7 +31,10 @@ const TableDataChildPitch = ({columns}) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/${path}/update/${params?.id} `} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/${path}/update/${params?.id} `}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">Update</div>
             </Link>
             <div
@@ -46,8 +49,8 @@ const TableDataChildPitch = ({columns}) => {
     },
   ];
 
-  if(!list) {
-    return <>Loading</>
+  if (!list) {
+    return <>Loading</>;
   }
 
   return (

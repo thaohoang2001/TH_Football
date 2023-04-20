@@ -13,8 +13,8 @@ export const createMessage = async (req, res, next) => {
       { id: req.body.conversationId },
       {
         $set: {
-          readByStaff: req.isAdmin,
-          readByCustomer: !req.isAdmin,
+          readByStaff: req.role == 'staff',
+          readByCustomer: !req.role == 'staff',
           lastMessage: req.body.desc,
         },
       },

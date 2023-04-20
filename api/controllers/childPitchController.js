@@ -1,19 +1,13 @@
 import ChildPitch from "../models/ChildPitch.js";
+import OrderMatch from "../models/OrderMatch.js";
 import Pitch from "../models/Pitch.js";
 
 export const createChildPitch = async (req, res, next) => {
-  const pitchId = req.params.pitchid;
   const newChildPitch = new ChildPitch(req.body);
 
   try {
     const savedChildPitch = await newChildPitch.save();
-    try {
-      await Pitch.findByIdAndUpdate(pitchId, {
-        $push: { childPitchs: savedChildPitch._id },
-      });
-    } catch (err) {
-      next(err);
-    }
+
     res.status(200).json(savedChildPitch);
   } catch (err) {
     next(err);
@@ -72,6 +66,42 @@ export const getChildPitch = async (req, res, next) => {
     next(err);
   }
 };
+
+export const postChildPitchFilter = async (req, res, next) => {
+  // sẽ làm theo khoảng thời gian sau
+  try {
+    let pitchId = req.body.pitchId
+    let findMatch = req.body.findMatch
+    let orderMatch
+    if (findMatch != null) {
+      orderMatch = await OrderMatch.find({ findMatch: findMatch }).populate('childPitchId')
+    }
+    else {
+      orderMatch = await OrderMatch.find({}).populate('childPitchId')
+    }
+    let childPitchOrderArr = []
+    let childPitch
+    orderMatch.forEach(element => {
+      childPitchOrderArr.push(element.childPitchId._id)
+    });
+
+    console.log(findMatch)
+    if (findMatch == 'true') {
+      // nếu tìm sân bắt đối thì findMatch = true
+      childPitch = await ChildPitch.find({ _id: { $in: childPitchOrderArr }, pitchId: pitchId });
+      console.log(childPitch)
+    }
+    else if (findMatch == null) {
+      childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
+      console.log(childPitch)
+    }
+    // nếu tìm sân không bắt đối thì findMatch = false
+    res.status(200).json(childPitch);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getChildPitchs = async (req, res, next) => {
   try {
     const childPitchs = await ChildPitch.find();
@@ -80,3 +110,4 @@ export const getChildPitchs = async (req, res, next) => {
     next(err);
   }
 };
+

@@ -72,7 +72,6 @@ export const confirm = async (req, res, next) => {
 export const getOrders = async (req, res, next) => {
   try {
     const orders = await Order.find({
-      // ...(req.isAdmin),
       isCompleted: true,
     })
 

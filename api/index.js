@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import pitchsRoute from "./routes/pitchs.js";
@@ -10,6 +11,7 @@ import orderRoute from "./routes/order.js";
 import conversationRoute from "./routes/conversation.js";
 import messageRoute from "./routes/message.js";
 import reviewRoute from "./routes/review.js";
+import matchingRoute from "./routes/matching.js";
 import cors from "cors";
 
 const app = express();
@@ -37,7 +39,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.static("public"));
 app.use(cors());
-
+app.use(bodyParser.urlencoded({ extended: false }))
 // const corsOrigin ={
 //     origin:'http://localhost:8686', //or whatever port your frontend is using
 //     credentials:true,            
@@ -59,6 +61,7 @@ app.use('/api/orders', orderRoute);
 app.use('/api/conversations', conversationRoute);
 app.use('/api/messages', messageRoute);
 app.use('/api/reviews', reviewRoute);
+app.use('/api/matchings', matchingRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;

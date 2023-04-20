@@ -3,19 +3,23 @@ const ChildPitchSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+     
     },
     price: {
       type: Number,
-      required: true,
+     
     },
     maxPeople: {
       type: Number,
-      required: true,
+      
     },
     desc: {
       type: String,
-      required: true,
+     
+    },
+    pitchId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'pitch',
     },
     childPitchNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
   },

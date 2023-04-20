@@ -1,17 +1,17 @@
 import express from "express";
 import { createPitch, deletePitch, getAllPitch, getPitch, updatePitch } from "../controllers/pitchController.js";
-import { verifyAdmin } from "../ultis/verifyToken.js";
+
 
 const router = express.Router();
 
 //Create
-router.post("/", verifyAdmin, createPitch)
+router.post("/",  createPitch)
 
 //update
 router.put("/:id", updatePitch)
 
 //delete
-router.delete("/:id", verifyAdmin, deletePitch)
+router.delete("/:id",  deletePitch)
 
 //get
 router.get("/find/:id", getPitch)

@@ -61,7 +61,7 @@ const Opponent = () => {
   };
 
   const names = [
-    "1h-2h",
+    "01:00-02:00",
     "2h-3h",
     "3h-4h",
     "4h-5h",

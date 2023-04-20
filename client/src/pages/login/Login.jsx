@@ -24,10 +24,10 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post("/auth/login", credentials);
-      if (res.data) {
+      if (res?.data) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-
         navigate("/");
+
       } else {
         dispatch({
           type: "LOGIN_FAILURE",
@@ -43,10 +43,12 @@ const Login = () => {
     <section>
       <div className="imgBx">
         <img
-          src= ""
-          // "https://images.pexels.com/photos/2570139/pexels-photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=600"
+          src=""
+          // "https://images.pexels.
+          // com/photos/2570139/pexels-
+          // photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt=""
-          // style={{ zIndex: '1', mixBlendMode: "overlay" }}
+          style={{ zIndex: '1', mixBlendMode: "overlay" }}
         />
       </div>
       <div className="contentBx">

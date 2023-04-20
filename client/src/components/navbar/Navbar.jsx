@@ -10,13 +10,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
-  const { dispatch } = useContext(AuthContext);
+  const { user, dispatch} = useContext(AuthContext);
   const navigate = useNavigate();
 
 
   const handleClickLogOut = async () => {
     dispatch({ type: "LOGOUT"});
+    navigate("/login");
   }
   
   const handleClickCart = async () => {
@@ -33,7 +33,7 @@ const Navbar = () => {
         
           <Link to="/login">
             {user ? (
-              user.email
+              user?.username
             ) : (
               <div className="navItems">
                 <button className="headerBtnIn">Login</button>

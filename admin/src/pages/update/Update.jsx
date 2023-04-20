@@ -23,7 +23,7 @@ const Update = ({ inputs, title }) => {
     data.append("file", file);
     data.append("upload_preset", "upload");
     try {
-      const uploadRes = await axios.post(
+      const uploadRes = await axios.put(
         "https://api.cloudinary.com/v1_1/dkwduwfub/image/upload",
         data
       );

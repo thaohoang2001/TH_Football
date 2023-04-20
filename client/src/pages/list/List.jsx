@@ -62,10 +62,7 @@ const List = () => {
               <span
                 onClick={() => setOpenDate(!openDate)}
                 className="headerSearchTextList"
-              >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
-                dates[0].endDate,
-                "MM/dd/yyyy"
-              )}`}</span>
+              >{`${format(dates[0].startDate, "MM/dd/yyyy")}`}</span>
               {openDate && (
                 <DateRange
                   editableDateInputs={true}
