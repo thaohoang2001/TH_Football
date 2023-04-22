@@ -13,8 +13,20 @@ const NewPitch = () => {
   const [info, setInfo] = useState({});
   const navigate = useNavigate();
 
+  const [childPitchs, setchildPitchs] = useState([]);
+
+  const { data, loading, error } = useFetch("/childPitchs");
+
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSelect = (e) => {
+    const value = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    setchildPitchs(value);
   };
 
   console.log(files)
@@ -39,6 +51,7 @@ const NewPitch = () => {
 
       const newpitch = {
         ...info,
+        childPitchs,
         photos: list,
       };
 
@@ -46,6 +59,7 @@ const NewPitch = () => {
       navigate("/pitchs");
     } catch (err) {console.log(err)}
   };
+
   return (
     <div className="new">
       <Sidebar />
@@ -92,13 +106,10 @@ const NewPitch = () => {
                 </div>
               ))}
               <div className="formInput">
-                <label>Featured</label>
-                <select id="featured" onChange={handleChange}>
-                  <option value={false}>No</option>
-                  <option value={true}>Yes</option>
-                </select>
+                <label>.</label>
+                
               </div>
-              {/* <div className="selectChildPitch">
+              <div className="selectChildPitch">
                 <label>ChildPitch</label>
                 <select id="childPitchs" multiple onChange={handleSelect}>
                   {loading
@@ -110,7 +121,7 @@ const NewPitch = () => {
                         </option>
                       ))}
                 </select>
-              </div> */}
+              </div>
               <button onClick={handleClick}>Send</button>
             </form>
           </div>

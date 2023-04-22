@@ -14,10 +14,10 @@ export const createReview = async (req, res, next) => {
   });
 
   try {
-    const review = await Review.findOne({
-      pitchId: req.body.pitchId,
-      userId: req.userId,
-    });
+    // const review = await Review.findOne({
+    //   pitchId: req.body.pitchId,
+    //   userId: req.userId,
+    // });
 
     // if (review)
     //   return next(

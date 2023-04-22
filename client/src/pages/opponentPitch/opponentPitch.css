@@ -18,7 +18,7 @@
 .new .newContainer .bottom h1 {
   color: rgb(58, 58, 58);
   font-size: 20px;
-  margin-left: 500px;
+  margin-left: 560px;
 }
 
 .new .newContainer .top .left,
@@ -81,6 +81,14 @@
   cursor: pointer;
   margin-top: 10px;
   margin-left: 1200px;
+  background-image: linear-gradient(#1095c1,#1095c1);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  transition: .4s;
+}
+
+.SubmitButton:hover{
+  background-size: 100% 100%;
 }
 
 .OpponentPitchDates {

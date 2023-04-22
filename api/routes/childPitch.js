@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 //CREATE
-router.post("/", createChildPitch);
+router.post("/create/:pitchid", createChildPitch);
 
 //UPDATE
 router.put("/availability/:id", updateChildPitchAvailability);
@@ -22,6 +22,5 @@ router.get("/:id", getChildPitch);
 router.get("/", getChildPitchs);
 
 router.post("/filter", postChildPitchFilter);
-
 
 export default router;

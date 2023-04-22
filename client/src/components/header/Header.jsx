@@ -20,12 +20,11 @@ import useFetch from "../../hooks/useFetch";
 
 const Header = ({ type }) => {
   const [filteredData, setFilteredData] = useState([]);
-
   const [destination, setDestination] = useState("");
 
-  const dataDistrict = { DistrictData };
+  const [district, setDistrict] = useState("")
 
-  const { data } = useFetch();
+  const { data } = useFetch("/pitchs");
 
   const [openDate, setOpenDate] = useState(false);
   const [dates, setDates] = useState([
@@ -38,7 +37,7 @@ const Header = ({ type }) => {
   const handleFilter = (e) => {
     const searchWord = e.target.value;
     setDestination(searchWord);
-    const newFilter = dataDistrict.filter((value) => {
+    const newFilter = data.filter((value) => {
       return value.district.toLowerCase().includes(searchWord.toLowerCase());
     });
 
@@ -48,6 +47,11 @@ const Header = ({ type }) => {
       setFilteredData(newFilter);
     }
   };
+
+  const handleClickData = (e) => {
+    district = e.target.value;
+    setDistrict(district)
+  }
 
   const navigate = useNavigate();
 
@@ -85,7 +89,7 @@ const Header = ({ type }) => {
             </div>
           </Link>
         </div>
-        
+
         {type !== "list" && (
           <>
             <h1 className="headerTitle">Football is my life</h1>
@@ -95,31 +99,31 @@ const Header = ({ type }) => {
             </p>
 
             <div className="headerSearch">
-              {/* <div className="headerSearchItemWrapper"> */}
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faLocation} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="Select the destionation?"
-                  className="headerSearchInput"
-                  value={destination}
-                  onChange={handleFilter}
-                  // onChange={(e) => setDestination(e.target.value)}
-                />
-              </div>
-
-              {filteredData.length != 0 && (
-                <div className="dataResult">
-                  {filteredData.slice(0, 15).map((value, key) => {
-                    return (
-                      <a className="dataItem" target="_blank">
-                        <p>{value.district} </p>
-                      </a>
-                    );
-                  })}
+              <div className="headerSearchItemWrapper">
+                <div className="headerSearchItem">
+                  <FontAwesomeIcon icon={faLocation} className="headerIcon" />
+                  <input
+                    type="text"
+                    placeholder="Select the destionation?"
+                    className="headerSearchInput"
+                    value={destination}
+                    onChange={handleFilter}
+                    // onChange={(e) => setDestination(e.target.value)}
+                  />
                 </div>
-              )}
-              
+
+                {filteredData.length != 0 && (
+                  <div className="dataResult">
+                    {filteredData.slice(0, 5).map((value, key) => {
+                      return (
+                        <a className="dataItem" target="_blank" onClick={handleClickData}>
+                          <p>{value.district} </p>
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
 
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />

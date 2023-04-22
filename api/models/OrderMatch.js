@@ -13,7 +13,6 @@ const OrderMatchSchema = new mongoose.Schema({
     childPitchId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'childPitch',
-   
     },
     startDate: {
         type: Date,
@@ -24,8 +23,7 @@ const OrderMatchSchema = new mongoose.Schema({
     findMatch: {
         type: Boolean,
         default:false,
-    }
-    
+    },
 });
 
 export default mongoose.model('OrderMatch', OrderMatchSchema);

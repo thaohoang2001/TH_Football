@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const NewChildPitch = () => {
   const [info, setInfo] = useState({});
   const [pitchId, setPitchId] = useState(undefined);
-  const [childPitchs, setchildPitchs] = useState([]);
 
   const navigate = useNavigate();
 
@@ -22,16 +21,17 @@ const NewChildPitch = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const childPitchNumbers = childPitchs.split(",").map((childPitch) => ({ number: childPitch }));
     try {
-      await axios.post(`/childPitchs/${pitchId}`, { ...info, childPitchNumbers });
+      await axios.post(`/childPitchs/${pitchId}`, {
+        ...info,
+      });
       navigate("/childPitchs");
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log(info)
+  console.log(info);
   return (
     <div className="new">
       <Sidebar />
@@ -55,13 +55,6 @@ const NewChildPitch = () => {
                 </div>
               ))}
               <div className="formInput">
-                <label>ChildPitchs</label>
-                <textarea
-                  onChange={(e) => setchildPitchs(e.target.value)}
-                  placeholder="give comma between childPitch numbers."
-                />
-              </div>
-              <div className="formInput">
                 <label>Choose a Pitch</label>
                 <select
                   id="pitchId"
@@ -71,7 +64,9 @@ const NewChildPitch = () => {
                     ? "loading"
                     : data &&
                       data.map((pitch) => (
-                        <option key={pitch._id} value={pitch._id}>{pitch.name}</option>
+                        <option key={pitch._id} value={pitch._id}>
+                          {pitch.name}
+                        </option>
                       ))}
                 </select>
               </div>

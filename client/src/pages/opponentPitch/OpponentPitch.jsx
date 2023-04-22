@@ -29,7 +29,6 @@ const OpponentPitch = () => {
   const [dates, setDates] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
       key: "selection",
     },
   ]);
@@ -97,19 +96,6 @@ const OpponentPitch = () => {
         </div>
         <div className="bottom">
           <div className="right">
-            <div className="formInput">
-              <label>Choose a Pitch：</label>
-              <select id="pitchId" onChange={(e) => setPitchId(e.target.value)}>
-                {loading
-                  ? "loading"
-                  : data &&
-                    data.map((pitch) => (
-                      <option key={pitch._id} value={pitch._id}>
-                        {pitch.name}
-                      </option>
-                    ))}
-              </select>
-            </div>
 
             <div className="formInput">
               <label>Choose a Days：</label>
@@ -121,10 +107,7 @@ const OpponentPitch = () => {
                 <span
                   onClick={() => setOpenDate(!openDate)}
                   className="OpponentPitchSearchText"
-                >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
-                  dates[0].endDate,
-                  "MM/dd/yyyy"
-                )}`}</span>
+                >{`${format(dates[0].startDate, "MM/dd/yyyy")}`}</span>
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}

@@ -1,5 +1,5 @@
 import express from "express";
-import { createPitch, deletePitch, getAllPitch, getPitch, updatePitch } from "../controllers/pitchController.js";
+import { createPitch, deletePitch, getAllPitch, getPitch, getPitchOfChildPitch, updatePitch } from "../controllers/pitchController.js";
 
 
 const router = express.Router();
@@ -18,6 +18,8 @@ router.get("/find/:id", getPitch)
 
 //get all
 router.get("/", getAllPitch)
+
+router.get("/childPitch/:id", getPitchOfChildPitch);
 
 
 

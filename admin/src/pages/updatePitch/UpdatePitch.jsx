@@ -6,15 +6,29 @@ import { useEffect, useState } from "react";
 import { pitchInputs } from "../../formSource";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 const UpdatePitch = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const { idPitch } = useParams();
+
+  const [childPitchs, setchildPitchs] = useState([]);
+
+  const { data, loading, error } = useFetch("/childPitchs");
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSelect = (e) => {
+    const value = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    setchildPitchs(value);
   };
 
   console.log(files);
@@ -105,13 +119,13 @@ const UpdatePitch = () => {
                   />
                 </div>
               ))}
-              <div className="formInput">
+              {/* <div className="formInput">
                 <label>Featured</label>
                 <select id="featured" onChange={handleChange}>
                   <option value={false}>No</option>
                   <option value={true}>Yes</option>
                 </select>
-              </div>
+              </div> */}
               {/* <div className="selectChildPitch">
                 <label>ChildPitch</label>
                 <select id="childPitchs" multiple onChange={handleSelect}>

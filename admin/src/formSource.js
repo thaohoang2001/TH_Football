@@ -145,4 +145,10 @@ export const childPitchInputs = [
     type: "number",
     placeholder: "14",
   },
+  {
+    id: "dateChildPitch",
+    label: "Date",
+    type: "date",
+    placeholder: "28/11/2001",
+  },
 ];

@@ -30,7 +30,6 @@ const Opponent = () => {
   const [dates, setDates] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
       key: "selection",
     },
   ]);
@@ -38,12 +37,9 @@ const Opponent = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const newpitch = {
-        ...info,
-      };
 
-      await axios.get("/", newpitch);
-      navigate("/pitchs");
+      await axios.get("/matchings");
+      navigate("/matching");
     } catch (err) {
       console.log(err);
     }
@@ -101,21 +97,6 @@ const Opponent = () => {
         </div>
         <div className="bottom">
           <div className="right">
-            <div className="formInput">
-              <label>Choose a Pitch：</label>
-              <FormControl sx={{ m: 1, width: 300 }}>
-              <select id="pitchId" onChange={(e) => setPitchId(e.target.value)}>
-                {loading
-                  ? "loading"
-                  : data &&
-                    data.map((pitch) => (
-                      <option key={pitch._id} value={pitch._id}>
-                        {pitch.name}
-                      </option>
-                    ))}
-              </select>
-              </FormControl>
-            </div>
 
             <div className="formInput">
               <label>Choose a Days：</label>
@@ -127,10 +108,7 @@ const Opponent = () => {
                 <span
                   onClick={() => setOpenDate(!openDate)}
                   className="OpponentPitchSearchText"
-                >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
-                  dates[0].endDate,
-                  "MM/dd/yyyy"
-                )}`}</span>
+                >{`${format(dates[0].startDate, "MM/dd/yyyy")}`}</span>
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}

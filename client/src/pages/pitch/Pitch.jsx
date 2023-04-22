@@ -15,16 +15,6 @@ import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reviews from "../../components/reviews/Reviews";
 import Reserve from "../../components/reserve/Reserve";
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-} from "@mui/material";
 
 const Pitch = () => {
   const location = useLocation();
@@ -32,8 +22,10 @@ const Pitch = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [pitchId, setPitchId] = useState([]);
 
   const { data, loading, error } = useFetch(`/pitchs/find/${id}`);
+  const { dataChildPitch } = useFetch("/pitchs");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -73,45 +65,6 @@ const Pitch = () => {
     } else {
       navigate("/login");
     }
-  };
-
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  const names = [
-    "1h-2h",
-    "2h-3h",
-    "3h-4h",
-    "4h-5h",
-    "5h-6h",
-    "6h-7h",
-    "7h-8h",
-    "8h-9h",
-    "9h-10h",
-    "10h-11h",
-    "11h-12h",
-    "12h-13h",
-    "12h-13h",
-    "13h-14h",
-    "14h-15h",
-    "15h-16h",
-    "16h-17h",
-  ];
-
-  const [personName, setPersonName] = useState([]);
-  const handleChangeTimeFrame = (events) => {
-    const {
-      target: { value },
-    } = events;
-    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
@@ -190,31 +143,6 @@ const Pitch = () => {
                 <button onClick={handleClick}>Reserve or Book Now!</button>
               </div>
             </div>
-          </div>
-          <div className="formInputTimeFrame">
-            <label>Choose a TimeFrame：</label>
-            <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id="demo-multiple-checkbox-label">
-                TimeFrame
-              </InputLabel>
-              <Select
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
-                multiple
-                value={personName}
-                onChange={handleChangeTimeFrame}
-                input={<OutlinedInput label="TimeFrame" />}
-                renderValue={(selected) => selected.join(", ")}
-                MenuProps={MenuProps}
-              >
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    <Checkbox checked={personName.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
           </div>
         </div>
       )}

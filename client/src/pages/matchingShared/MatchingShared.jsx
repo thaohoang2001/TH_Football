@@ -3,17 +3,13 @@ import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import Matching from "../matching/Matching";
 import OpponentPitch from "../opponentPitch/OpponentPitch";
-import Opponent from "../opponent/Opponent";
 import { Box, Tabs, Tab } from "@mui/material";
 import { TabPanel, TabContext } from "@mui/lab";
-import Waiting from "../waiting/Waiting";
 
 const MatchingShared = () => {
   const namePages = {
     MATCHING: "matching",
     CHOOSE_OPPONENT_PITCH: "choose-opponent-pitch",
-    CHOOSE_OPPONENT: "choose-opponent",
-    WAITING: "waiting",
   };
 
   const [value, setValue] = useState(namePages.MATCHING);
@@ -44,11 +40,6 @@ const MatchingShared = () => {
                   label="Choose Opponent Pitch"
                   value={namePages.CHOOSE_OPPONENT_PITCH}
                 />
-                <Tab
-                  label="Choose Opponent"
-                  value={namePages.CHOOSE_OPPONENT}
-                />
-                <Tab label="Waiting" value={namePages.WAITING} />
               </Tabs>
             </Box>
             <TabPanel value={namePages.MATCHING}>
@@ -56,12 +47,6 @@ const MatchingShared = () => {
             </TabPanel>
             <TabPanel value={namePages.CHOOSE_OPPONENT_PITCH}>
               <OpponentPitch />
-            </TabPanel>
-            <TabPanel value={namePages.CHOOSE_OPPONENT}>
-              <Opponent />
-            </TabPanel>
-            <TabPanel value={namePages.WAITING}>
-              <Waiting />
             </TabPanel>
           </Box>
         </TabContext>

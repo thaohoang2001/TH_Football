@@ -3,11 +3,11 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    pitchId: {
+    childPitchId: {
       type: String,
       required: true,
     },
-    namePitchOrder: {
+    nameChildPitchOrder: {
       type: String,
       required: true,
     },
@@ -17,6 +17,10 @@ const OrderSchema = new Schema(
     },
     price: {
       type: Number,
+      required: true,
+    },
+    DateOrder: {
+      type: Date,
       required: true,
     },
     isCompleted: {

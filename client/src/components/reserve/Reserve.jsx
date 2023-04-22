@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
 import "./reserve.css";
 import useFetch from "../../hooks/useFetch";
 import { useContext, useState } from "react";
@@ -31,15 +30,19 @@ const Reserve = ({ setOpen, pitchId }) => {
     return dates;
   };
 
+  const handleOpponent = () => {
+
+  }
+
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
 
-  const isAvailable = (childPitchNumber) => {
-    const isFound = childPitchNumber.unavailableDates.some((date) =>
-      alldates.includes(new Date(date).getTime())
-    );
+  // const isAvailable = (childPitchNumber) => {
+  //   const isFound = childPitchNumber.unavailableDates.some((date) =>
+  //     alldates.includes(new Date(date).getTime())
+  //   );
 
-    return !isFound;
-  };
+  //   return !isFound;
+  // };
 
   const handleSelect = (e) => {
     const checked = e.target.checked;
@@ -57,7 +60,7 @@ const Reserve = ({ setOpen, pitchId }) => {
     try {
       await Promise.all(
         selectedchildPitchs.map((childPitchId) => {
-          const res = axios.put(`/childPitchs/availability/${childPitchId}`, {
+          const res = axios.put(`/childPitchs/${childPitchId}`, {
             dates: alldates,
           });
           return res.data;
@@ -75,29 +78,22 @@ const Reserve = ({ setOpen, pitchId }) => {
           className="rClose"
           onClick={() => setOpen(false)}
         />
-        <span>Select your childPitchs:</span>
+        <span>Select your childPitchs to book:</span>
         {data.map((item) => (
           <div className="rItem" key={item._id}>
             <div className="rItemInfo">
-              <div className="rTitle">{item.title}</div>
-              <div className="rDesc">{item.desc}</div>
-              <div className="rMax">
+              <div className="rTitle">Title: {item.title}</div>
+              <div className="rDesc">Desc: {item.desc}</div>
+              <div className="rDesc">
                 Max people: <b>{item.maxPeople}</b>
               </div>
-              <div className="rPrice">{item.price}</div>
+              <div className="rDesc">Price: {item.price}</div>
+              <div className="rDesc">Status: Status</div>
             </div>
-            <div className="rSelectChildPitchs">
-              {item.childPitchNumbers.map((childPitchNumber) => (
-                <div className="childPitchs">
-                  <label>{childPitchNumber.number}</label>
-                  <input
-                    type="checkbox"
-                    value={childPitchNumber._id}
-                    onChange={handleSelect}
-                    disabled={!isAvailable(childPitchNumber)}
-                  />
-                </div>
-              ))}
+            <div className="rMatch">
+              <button onClick={handleOpponent} className="rButtonMatch">
+                Match Opponet
+              </button>
             </div>
           </div>
         ))}

@@ -1,5 +1,5 @@
+import ChildPitch from "../models/ChildPitch.js";
 import Order from "../models/Order.js";
-import Pitch from "../models/Pitch.js";
 import Stripe from "stripe";
 
 export const intent = async (req, res, next) => {
@@ -7,10 +7,10 @@ export const intent = async (req, res, next) => {
     process.env.STRIPE
   );
 
-  const pitch = await Pitch.findById(req.params.id);
+  const childPitch = await ChildPitch.findById(req.params.id);
   
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: pitch?.cheapestPrice * 100,
+    amount: childPitch?.price * 100,
     currency: "usd",
     automatic_payment_methods: {
       enabled: true,
@@ -18,10 +18,11 @@ export const intent = async (req, res, next) => {
   });
 
   const newOrder = new Order({
-    pitchId: pitch._id,
-    namePitchOrder: pitch.name,
-    title: pitch.title,
-    price: pitch.cheapestPrice,
+    childPitchId: childPitch._id,
+    nameChildPitchOrder: childPitch.title,
+    title: childPitch.desc,
+    price: childPitch.price,
+    DateOrder: childPitch.DateChildPitch,
     payment_intent: paymentIntent.id,
   })
   await newOrder.save();
@@ -33,22 +34,22 @@ export const intent = async (req, res, next) => {
 }
 
 
-export const createOrder = async (req, res, next) => {
+// export const createOrder = async (req, res, next) => {
 
-  const pitch = await Pitch.findById(req.params.id);
+//   const pitch = await Pitch.findById(req.params.id);
   
-  const newOrder = new Order({
-    pitchId: pitch._id,
-    namePitchOrder: pitch.name,
-    title: pitch.title,
-    price: pitch.cheapestPrice,
-    payment_intent: paymentIntent.id,
-  })
-  await newOrder.save();
-  console.log("newOrder: ", newOrder);
+//   const newOrder = new Order({
+//     pitchId: pitch._id,
+//     namePitchOrder: pitch.name,
+//     title: pitch.title,
+//     price: pitch.cheapestPrice,
+//     payment_intent: paymentIntent.id,
+//   })
+//   await newOrder.save();
+//   console.log("newOrder: ", newOrder);
 
-  res.status(200).send(newOrder);
-}
+//   res.status(200).send(newOrder);
+// }
 
 export const confirm = async (req, res, next) => {
   try {

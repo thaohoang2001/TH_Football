@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
+
 const TableDataChildPitch = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];

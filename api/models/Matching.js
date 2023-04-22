@@ -17,7 +17,7 @@ const MatchingSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    timeFB: {
+    timeFR: {
         type: String,
         required: true,
     },

@@ -193,3 +193,7 @@
 .dataItem p {
   margin-left: 10px;
 }
+
+.dataItem:hover {
+  background-color: lightgrey;
+}
