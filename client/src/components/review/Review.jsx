@@ -49,13 +49,6 @@ const Review = ({ review }) => {
         <span>{review.star}</span>
       </div>
       <p>{review.desc}</p>
-      {/* <div className="helpful">
-        <span>Helpful?</span>
-        <img src="https://i.ibb.co/MBtqXQ/no-avatar.gif" alt="" />
-        <span>Yes</span>
-        <img src="https://i.ibb.co/MBtqXQ/no-avatar.gif" alt="" />
-        <span>No</span>
-      </div> */}
     </div>
   );
 };

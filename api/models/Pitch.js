@@ -17,10 +17,6 @@ const PitchSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    distance: {
-        type: String,
-        required: true,
-    },
     photos: {
         type: [String],
         required: true,

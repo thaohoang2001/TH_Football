@@ -115,10 +115,15 @@ export const childPitchColumns = [
     width: 100,
   },
   {
-    field: "date",
-    headerName: "Date",
-    width: 250,
-    valueFormatter: params =>
-    moment(params?.value).format("DD/MM/YYYY hh:mm A"),
+    field: "TimeFrame",
+    headerName: "Time Frame",
+    width: 100,
   },
+  // {
+  //   field: "date",
+  //   headerName: "Date",
+  //   width: 250,
+  //   valueFormatter: params =>
+  //   moment(params?.value).format("DD/MM/YYYY hh:mm A"),
+  // },
 ];

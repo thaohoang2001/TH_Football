@@ -18,26 +18,43 @@ const TableData = ({ columns, params }) => {
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
   const [open, setOpen] = useState(false);
+  const [idDelete, setidDelete] = useState(null);
   const { data } = useFetch(`/${path}`);
 
   useEffect(() => {
     setList(data);
   }, [data]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await axios.delete(`/${path}/${id}`);
-      setList(list.filter((item) => item._id !== id));
+      if(idDelete) {
+        const resp = await axios.delete(`/${path}/${idDelete}`);
+        if(resp) {
+          handleClose();
+          reFetch();
+        }
+      }
     } catch (err) {}
   };
 
-  const handleClickOpen = () => {
+  const reFetch = async () => {
+    try {
+      const res = await axios.get(path);
+      setList(res.data);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleClickOpen = (idRow) => {
     setOpen(true);
+    setidDelete(idRow)
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
 
   const actionColumn = [
     {
@@ -55,8 +72,8 @@ const TableData = ({ columns, params }) => {
             </Link>
             <div
               className="deleteButton"
-              // onClick={handleClickOpen}
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleClickOpen(params.row._id)}
+              // onClick={() => handleDelete(params.row._id)}
               
             >
               Delete
@@ -105,7 +122,7 @@ const TableData = ({ columns, params }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => handleDelete(params._id)} autoFocus>
+            <Button onClick={() => handleDelete()} autoFocus>
               Delete
             </Button>
           </DialogActions>

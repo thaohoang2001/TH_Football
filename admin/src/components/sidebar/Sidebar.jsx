@@ -37,19 +37,19 @@ const Sidebar = () => {
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <span>Manager Account</span>
             </li>
           </Link>
           <Link to="/pitchs" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Pitch</span>
+              <span>Manager Pitch</span>
             </li>
           </Link>
           <Link to="/childPitchs" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>ChildPitch</span>
+              <span>Manager ChildPitch</span>
             </li>
           </Link>
           {/* <Link to="/order" style={{ textDecoration: "none" }}>

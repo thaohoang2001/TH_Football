@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Button, Col } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./login.css";
 
 const Login = () => {
@@ -26,16 +28,24 @@ const Login = () => {
       const res = await axios.post("/auth/login", credentials);
       if (res.data) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-
+        toast.success("Success Notification !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
         navigate("/");
       } else {
         dispatch({
           type: "LOGIN_FAILURE",
           payload: { message: "You are not allowed!" },
         });
+        toast.error(error.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 

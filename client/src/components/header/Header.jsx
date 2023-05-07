@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
 import { DateRange } from "react-date-range";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
@@ -22,8 +22,6 @@ const Header = ({ type }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [destination, setDestination] = useState("");
 
-  const [district, setDistrict] = useState("")
-
   const { data } = useFetch("/pitchs");
 
   const [openDate, setOpenDate] = useState(false);
@@ -33,6 +31,8 @@ const Header = ({ type }) => {
       key: "selection",
     },
   ]);
+
+  const [openSlide, setopenSlide] = useState(false);
 
   const handleFilter = (e) => {
     const searchWord = e.target.value;
@@ -48,10 +48,28 @@ const Header = ({ type }) => {
     }
   };
 
+  // let menuRef = useRef();
+
+  // useEffect(() => {
+  //   let handlerDown = (e) => {
+  //     if (!menuRef.current.contains(e.target)) {
+  //       setopenSlide(false);
+  //       console.log(menuRef.current);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handlerDown);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handlerDown);
+  //   };
+  // });
+
   const handleClickData = (e) => {
-    district = e.target.value;
-    setDistrict(district)
-  }
+    setDestination(e);
+    console.log(e);
+    setFilteredData([]);
+  };
 
   const navigate = useNavigate();
 
@@ -101,7 +119,13 @@ const Header = ({ type }) => {
             <div className="headerSearch">
               <div className="headerSearchItemWrapper">
                 <div className="headerSearchItem">
-                  <FontAwesomeIcon icon={faLocation} className="headerIcon" />
+                  <FontAwesomeIcon
+                    icon={faLocation}
+                    className="headerIcon"
+                    onClick={() => {
+                      setopenSlide(!openSlide);
+                    }}
+                  />
                   <input
                     type="text"
                     placeholder="Select the destionation?"
@@ -113,12 +137,17 @@ const Header = ({ type }) => {
                 </div>
 
                 {filteredData.length != 0 && (
-                  <div className="dataResult">
-                    {filteredData.slice(0, 5).map((value, key) => {
+                  <div className="dataResult" >
+                    {filteredData.map((value, key) => {
                       return (
-                        <a className="dataItem" target="_blank" onClick={handleClickData}>
-                          <p>{value.district} </p>
-                        </a>
+                        <span
+                          className="dataItem"
+                          target="_blank"
+                          onClick={() => handleClickData(value.district)}
+                          // {setopenSlide(!openSlide)}
+                        >
+                          {value.district}
+                        </span>
                       );
                     })}
                   </div>

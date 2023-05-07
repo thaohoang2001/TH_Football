@@ -90,7 +90,7 @@ section .contentBx .formBx h2 {
 }
 
 .login-btn {
-  margin-top: 6px;
+  margin-top: 30px;
   width: 100%;
   background-color: #003580;
   border: 2px solid #003580;
@@ -109,4 +109,12 @@ section .contentBx .formBx h2 {
 
 .error-message {
   display: flex;
+}
+
+.register {
+  padding: 3px;
+  margin-left: 45px;
+  color: #ff4584;
+  outline: auto;
+  cursor: pointer;
 }

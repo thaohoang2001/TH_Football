@@ -1,6 +1,7 @@
 .reviews {
   margin-top: 50px;
   margin-left: 250px;
+  border-top: 1px solid gray;
 }
 .reviews .add {
   margin-top: 20px;

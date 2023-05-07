@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 //CREATE
 router.post("/create/:pitchid", createChildPitch);
-
+    
 //UPDATE
 router.put("/availability/:id", updateChildPitchAvailability);
 
@@ -19,7 +19,7 @@ router.delete("/:id/:pitchid", deleteChildPitch);
 //GET
 router.get("/:id", getChildPitch);
 //GET ALL
-router.get("/", getChildPitchs);
+router.get("/:id", getChildPitchs);
 
 router.post("/filter", postChildPitchFilter);
 

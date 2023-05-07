@@ -13,12 +13,13 @@ import Orders from "./pages/orders/Orders";
 import Success from "./pages/success/Success";
 import Messages from "./pages/messages/Messages";
 import Message from "./pages/message/Message";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Matching from "./pages/matching/Matching";
 import MatchingShared from "./pages/matchingShared/MatchingShared";
+import Register from "./pages/register/Register";
+import { ToastContainer, toast } from "react-toastify";
+import CreateMessage from "./pages/createMessage/CreateMessage";
+
 
 function App() {
   const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ function App() {
     return (
       <div className="app">
         <QueryClientProvider client={queryClient}>
+          <ToastContainer />
           <Outlet />
         </QueryClientProvider>
       </div>
@@ -47,8 +49,12 @@ function App() {
           element: <Login />,
         },
         {
+          path: "/register",
+          element: <Register />,
+        },
+        {
           path: "/pitchs",
-          element: <List/>,
+          element: <List />,
         },
         {
           path: "/pitchs/:id",
@@ -65,6 +71,10 @@ function App() {
         {
           path: "/message/:id",
           element: <Message />,
+        },
+        {
+          path: "/createMessage",
+          element: <CreateMessage />,
         },
         {
           path: "/payment/:id",

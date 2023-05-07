@@ -8,7 +8,6 @@ const ConversationSchema = new mongoose.Schema({
     },
     staffId: {
         type: String,
-        required: true,
     },
     customerId: {
         type: String,

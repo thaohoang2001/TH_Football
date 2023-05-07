@@ -16,24 +16,9 @@ const ChildPitchSchema = new mongoose.Schema(
     DateChildPitch: {
       type: Date,
     },
-    // timeFrame: {
-    //   type: [String
-    //     {
-    //       khung time,
-    //       slot: [
-    //         doi 1, doi 2 
-    //       ]
-    //       status: 1
-    //     }
-    //     khugng time, 
-    //     slot: [
-    //       doi 1
-    //     ]
-    //     khugng time, 
-    //     slot: [
-    //     ]
-    //   ],
-    // },
+    timeFrame: {
+      type: String,
+    },
     pitchId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'pitch',
@@ -41,8 +26,6 @@ const ChildPitchSchema = new mongoose.Schema(
     status: {
       type: Number,
     },
-
-
   },
   { timestamps: true }
 );

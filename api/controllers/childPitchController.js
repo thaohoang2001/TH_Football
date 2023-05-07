@@ -70,8 +70,9 @@ export const getChildPitch = async (req, res, next) => {
 };
 
 export const getChildPitchs = async (req, res, next) => {
+  const pitchId = req.params.id;
   try {
-    const childPitchs = await ChildPitch.find();
+    const childPitchs = await ChildPitch.find({ pitchId: pitchId });
     res.status(200).json(childPitchs);
   } catch (err) {
     next(err);
@@ -86,32 +87,56 @@ export const postChildPitchFilter = async (req, res, next) => {
   try {
     let pitchId = req.body.pitchId
     let findMatch = req.body.findMatch
+    let timeFrame = req.body.timeFrame
     let orderMatch
-    if (findMatch != null) {
-      orderMatch = await OrderMatch.find({ findMatch: findMatch }).populate('childPitchId')
+
+    //check tìm sân đã có đối
+    if (findMatch.toString() == 'true') {
+      orderMatch = await OrderMatch.find({ findMatch: findMatch, timeFrame: timeFrame }).populate('childPitchId')
     }
+
+    //check tìm sân không cần bắt đối tự đá và tìm sân đợi đối
     else {
-      orderMatch = await OrderMatch.find({}).populate('childPitchId')
+      orderMatch = await OrderMatch.find({ timeFrame: timeFrame }).populate('childPitchId')
     }
+
     let childPitchOrderArr = []
     let childPitch
-    orderMatch.forEach(element => {
-      childPitchOrderArr.push(element.childPitchId._id)
-    });
+    for (let element of orderMatch) {
+      if (element.userIdMatch == null) {
+        await childPitchOrderArr.push(element.childPitchId._id)
+      }
 
-    console.log(findMatch)
-    if (findMatch == 'true') {
+    }
+    // orderMatch.forEach(element => {
+    //   console.log("Element: ",element);
+    //   childPitchOrderArr.push(element.childPitchId._id)
+    // });
+    if (findMatch.toString() == 'true') {
       // nếu tìm sân bắt đối thì findMatch = true
-      childPitch = await ChildPitch.find({ _id: { $in: childPitchOrderArr }, pitchId: pitchId });
-      console.log(childPitch)
-    } 
-    else if (findMatch == null) {
-      childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
-      console.log(childPitch)
+      if (pitchId != null) {
+        childPitch = await ChildPitch.find({ _id: { $in: childPitchOrderArr }, pitchId: pitchId });
+      }
+      else {
+        childPitch = await ChildPitch.find({ _id: { $in: childPitchOrderArr } });
+      }
+      //console.log(childPitch)
     }
     // nếu tìm sân không bắt đối thì findMatch = false
+    else if (findMatch.toString() == 'false') {
+      if (pitchId != null) {
+        childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
+      }
+      else {
+        childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr } });
+      }
+
+
+    }
+    console.log(childPitch);
     res.status(200).json(childPitch);
   } catch (err) {
     next(err);
   }
 };
+

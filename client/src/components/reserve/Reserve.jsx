@@ -5,54 +5,63 @@ import useFetch from "../../hooks/useFetch";
 import { useContext, useState } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Box,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Switch,
+} from "@mui/material";
+import { AuthContext } from "../../context/AuthContext";
 
 const Reserve = ({ setOpen, pitchId }) => {
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const id = useParams();
+  const { user } = useContext(AuthContext);
   const [selectedchildPitchs, setSelectedchildPitchs] = useState([]);
-  const { data, loading, error } = useFetch(`/pitchs/childPitch/${pitchId}`);
+
+  const [filterChildPitch, setFilterChildPitch] = useState({
+    findMatch: false,
+    timeFrame: "1h-2h",
+  });
+
+  const { data } = useFetch(`/pitchs/childPitch/${pitchId}`);
   const { dates } = useContext(SearchContext);
 
-  const getDatesInRange = (startDate, endDate) => {
+  const getDatesInRange = (startDate) => {
     const start = new Date(startDate);
-    const end = new Date(endDate);
 
     const date = new Date(start.getTime());
 
     const dates = [];
 
-    while (date <= end) {
-      dates.push(new Date(date).getTime());
-      date.setDate(date.getDate() + 1);
-    }
+    dates.push(new Date(date).getTime());
+    date.setDate(date.getDate() + 1);
 
     return dates;
   };
 
-  const handleOpponent = () => {
-
-  }
-
-  const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
-
-  // const isAvailable = (childPitchNumber) => {
-  //   const isFound = childPitchNumber.unavailableDates.some((date) =>
-  //     alldates.includes(new Date(date).getTime())
-  //   );
-
-  //   return !isFound;
-  // };
-
-  const handleSelect = (e) => {
-    const checked = e.target.checked;
-    const value = e.target.value;
-    setSelectedchildPitchs(
-      checked
-        ? [...selectedchildPitchs, value]
-        : selectedchildPitchs.filter((item) => item !== value)
-    );
+  const handleOpponent = async (e, childPitchId) => {
+    e.preventDefault();
+    try {
+      const resp = await axios.post("/matchings", {
+        ...filterChildPitch,
+        childPitchId: childPitchId,
+        userId: user._id,
+      });
+      console.log(resp);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  const alldates = getDatesInRange(dates[0].startDate);
 
   const navigate = useNavigate();
 
@@ -70,6 +79,75 @@ const Reserve = ({ setOpen, pitchId }) => {
       navigate(`/payment/${id}`);
     } catch (err) {}
   };
+
+  const handleFindMatch = () => {
+    setFilterChildPitch((prev) => ({
+      ...prev,
+      findMatch: !prev.findMatch,
+    }));
+
+    //call api
+
+    //fetch list childpitch for find opponent
+  };
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const names = [
+    "1h-2h",
+    "2h-3h",
+    "3h-4h",
+    "4h-5h",
+    "5h-6h",
+    "6h-7h",
+    "7h-8h",
+    "8h-9h",
+    "9h-10h",
+    "10h-11h",
+    "11h-12h",
+    "12h-13h",
+    "13h-14h",
+    "14h-15h",
+    "15h-16h",
+    "16h-17h",
+  ];
+
+  const [personName, setPersonName] = useState([]);
+
+  const handleChangeTimeFrame = async (events) => {
+    setPersonName(events.target.value);
+    setFilterChildPitch((prev) => ({
+      ...prev,
+      timeFrame: events.target.value,
+    }));
+
+    const payload = {
+      pitchId: id.id,
+      findMatch: filterChildPitch.findMatch,
+      timeFrame: events.target.value,
+    }
+
+    //call api
+    try {
+      console.log(filterChildPitch);
+      const res = await axios.post("/childPitchs/filter", payload)
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+    //filter list by timeframe
+  };
+
   return (
     <div className="reserve">
       <div className="rContainer">
@@ -78,7 +156,38 @@ const Reserve = ({ setOpen, pitchId }) => {
           className="rClose"
           onClick={() => setOpen(false)}
         />
-        <span>Select your childPitchs to book:</span>
+        <span>Select your childPitchs to book the childPitchs available:</span>
+        <div className="formInput">
+          <label>Choose a TimeFrame：</label>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="demo-multiple-checkbox-label">TimeFrame</InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              value={personName}
+              onChange={handleChangeTimeFrame}
+              input={<OutlinedInput label="TimeFrame" />}
+              MenuProps={MenuProps}
+            >
+              {names.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <ListItemText primary={name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+
+        <div className="formInput">
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch />}
+              onChange={handleFindMatch}
+              label="Match opponent"
+            />
+          </FormGroup>
+        </div>
+
         {data.map((item) => (
           <div className="rItem" key={item._id}>
             <div className="rItemInfo">
@@ -88,18 +197,20 @@ const Reserve = ({ setOpen, pitchId }) => {
                 Max people: <b>{item.maxPeople}</b>
               </div>
               <div className="rDesc">Price: {item.price}</div>
-              <div className="rDesc">Status: Status</div>
             </div>
-            <div className="rMatch">
-              <button onClick={handleOpponent} className="rButtonMatch">
-                Match Opponet
+            <div className="rDesc">
+              <button
+                onClick={(e) => handleOpponent(e, item._id)}
+                className="rButtonMatch"
+              >
+                Book
               </button>
             </div>
           </div>
         ))}
-        <button onClick={handleClick} className="rButton">
+        {/* <button onClick={handleClick} className="rButton">
           Reserve Now!
-        </button>
+        </button> */}
       </div>
     </div>
   );

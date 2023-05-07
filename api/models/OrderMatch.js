@@ -14,11 +14,9 @@ const OrderMatchSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'childPitch',
     },
-    startDate: {
-        type: Date,
-    },
-    endDate: {
-        type: Date,
+    timeFrame: {
+        type: String,
+        required: true,
     },
     findMatch: {
         type: Boolean,

@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Button, Col } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./login.css";
 
 const Login = () => {
@@ -10,6 +12,7 @@ const Login = () => {
     email: undefined,
     password: undefined,
   });
+
 
   const { loading, error, dispatch } = useContext(AuthContext);
 
@@ -26,19 +29,31 @@ const Login = () => {
       const res = await axios.post("/auth/login", credentials);
       if (res?.data) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+        toast.success("Success Notification !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
         navigate("/");
-
       } else {
         dispatch({
           type: "LOGIN_FAILURE",
           payload: { message: "You are not allowed!" },
         });
+        toast.error(error.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
+  const handlerRegister = () => {
+    navigate("/register");
+  };
+  
   return (
     <section>
       <div className="imgBx">
@@ -48,7 +63,7 @@ const Login = () => {
           // com/photos/2570139/pexels-
           // photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt=""
-          style={{ zIndex: '1', mixBlendMode: "overlay" }}
+          style={{ zIndex: "1", mixBlendMode: "overlay" }}
         />
       </div>
       <div className="contentBx">
@@ -76,6 +91,9 @@ const Login = () => {
                 onChange={handleChange}
               />
             </div>
+            <a className="register" onClick={handlerRegister}>
+              Do you have don't account? Register Now!!!
+            </a>
             <Button
               disabled={loading}
               onClick={handleClick}
@@ -83,7 +101,7 @@ const Login = () => {
             >
               Login
             </Button>
-            {error && <span className="error-message">{error.message}</span>}
+            {/* {error && <span className="error-message">{error.message}</span>} */}
           </Col>
         </div>
       </div>

@@ -25,7 +25,6 @@ const Pitch = () => {
   const [pitchId, setPitchId] = useState([]);
 
   const { data, loading, error } = useFetch(`/pitchs/find/${id}`);
-  const { dataChildPitch } = useFetch("/pitchs");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -61,7 +60,6 @@ const Pitch = () => {
   const handleClick = () => {
     if (user) {
       setOpenModal(true);
-      // navigate(`/payment/${id}`);
     } else {
       navigate("/login");
     }

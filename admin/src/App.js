@@ -18,6 +18,8 @@ import NewChildPitch from "./pages/newChildPitch/newChildPitch";
 import UpdateChildPitch from "./pages/updateChildPitch/UpdateChildPitch";
 import ListChildPitch from "./pages/listChildPitch/ListChildPitch";
 import Update from "./pages/update/Update";
+import { ToastContainer, toast } from "react-toastify";
+
 
 function App() {
   const ProtectedRoute = ({ children }) => {

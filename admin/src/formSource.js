@@ -145,10 +145,20 @@ export const childPitchInputs = [
     type: "number",
     placeholder: "14",
   },
-  {
-    id: "dateChildPitch",
-    label: "Date",
-    type: "date",
-    placeholder: "28/11/2001",
-  },
+  // {
+  //   id: "dateChildPitch",
+  //   label: "Date",
+  //   type: "date",
+  //   placeholder: "28/11/2001",
+  // },
+  // {
+  //   id: "timeFrame",
+  //   label: "Time Frame",
+  //   type: "string",
+  //   placeholder: "1h-2h",
+  // },
 ];
+
+export const messageInputs = [
+  
+]
