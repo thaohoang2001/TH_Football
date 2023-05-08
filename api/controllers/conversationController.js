@@ -58,3 +58,14 @@ export const getConversations = async (req, res, next) => {
     next(err);
   }
 };
+
+export const deleteConversation = async (req, res, next) => {
+  try {
+      await Conversation.findByIdAndDelete(
+          req.params.id
+      );
+      res.status(200).json("Conversation has been deleted");
+  } catch (err) {
+      next(err);
+  }
+}

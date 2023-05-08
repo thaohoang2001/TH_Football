@@ -128,10 +128,8 @@ export const postChildPitchFilter = async (req, res, next) => {
         childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
       }
       else {
-        childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr } });
+        childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
       }
-
-
     }
     console.log(childPitch);
     res.status(200).json(childPitch);

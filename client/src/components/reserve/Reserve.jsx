@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import "./reserve.css";
 import useFetch from "../../hooks/useFetch";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -31,7 +31,14 @@ const Reserve = ({ setOpen, pitchId }) => {
     timeFrame: "1h-2h",
   });
 
+  const [selectdata, setselectdata] = useState([]);
+
   const { data } = useFetch(`/pitchs/childPitch/${pitchId}`);
+  useEffect(() => {
+    if (data) setselectdata(data);
+    console.log(data);
+  }, [data]);
+
   const { dates } = useContext(SearchContext);
 
   const getDatesInRange = (startDate) => {
@@ -56,6 +63,7 @@ const Reserve = ({ setOpen, pitchId }) => {
         userId: user._id,
       });
       console.log(resp);
+      
     } catch (e) {
       console.log(e);
     }
@@ -80,15 +88,27 @@ const Reserve = ({ setOpen, pitchId }) => {
     } catch (err) {}
   };
 
-  const handleFindMatch = () => {
+  const handleFindMatch = async () => {
     setFilterChildPitch((prev) => ({
       ...prev,
       findMatch: !prev.findMatch,
     }));
 
-    //call api
+    const payload = {
+      findMatch: !filterChildPitch.findMatch,
+      timeFrame: filterChildPitch.timeFrame,
+    };
 
-    //fetch list childpitch for find opponent
+    //call api
+    try {
+      console.log(filterChildPitch);
+      const res = await axios.post("/childPitchs/filter", payload);
+      console.log(res);
+      setselectdata(res.data)
+    } catch (err) {
+      console.log(err);
+    }
+    // fetch list childpitch for find opponent
   };
 
   const ITEM_HEIGHT = 48;
@@ -131,21 +151,20 @@ const Reserve = ({ setOpen, pitchId }) => {
     }));
 
     const payload = {
-      pitchId: id.id,
+      // pitchId: id.id,
       findMatch: filterChildPitch.findMatch,
       timeFrame: events.target.value,
-    }
+    };
 
     //call api
     try {
       console.log(filterChildPitch);
-      const res = await axios.post("/childPitchs/filter", payload)
+      const res = await axios.post("/childPitchs/filter", payload);
       console.log(res);
+      setselectdata(res.data)
     } catch (err) {
       console.log(err);
     }
-
-    //filter list by timeframe
   };
 
   return (
@@ -188,26 +207,27 @@ const Reserve = ({ setOpen, pitchId }) => {
           </FormGroup>
         </div>
 
-        {data.map((item) => (
-          <div className="rItem" key={item._id}>
-            <div className="rItemInfo">
-              <div className="rTitle">Title: {item.title}</div>
-              <div className="rDesc">Desc: {item.desc}</div>
-              <div className="rDesc">
-                Max people: <b>{item.maxPeople}</b>
+        {selectdata.length > 0 &&
+          selectdata.map((item) => (
+            <div className="rItem" key={item._id}>
+              <div className="rItemInfo">
+                <div className="rTitle">Title: {item.title}</div>
+                <div className="rDesc">Desc: {item.desc}</div>
+                <div className="rDesc">
+                  Max people: <b>{item.maxPeople}</b>
+                </div>
+                <div className="rDesc">Price: {item.price}</div>
               </div>
-              <div className="rDesc">Price: {item.price}</div>
+              <div className="rDesc">
+                <button
+                  onClick={(e) => handleOpponent(e, item._id)}
+                  className="rButton"
+                >
+                  Book
+                </button>
+              </div>
             </div>
-            <div className="rDesc">
-              <button
-                onClick={(e) => handleOpponent(e, item._id)}
-                className="rButtonMatch"
-              >
-                Book
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
         {/* <button onClick={handleClick} className="rButton">
           Reserve Now!
         </button> */}

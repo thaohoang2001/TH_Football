@@ -43,3 +43,14 @@
 .review .helpful img {
   width: 14px;
 }
+
+.btnDelete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  background-color:#0071c2;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}

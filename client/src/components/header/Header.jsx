@@ -48,22 +48,6 @@ const Header = ({ type }) => {
     }
   };
 
-  // let menuRef = useRef();
-
-  // useEffect(() => {
-  //   let handlerDown = (e) => {
-  //     if (!menuRef.current.contains(e.target)) {
-  //       setopenSlide(false);
-  //       console.log(menuRef.current);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handlerDown);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handlerDown);
-  //   };
-  // });
 
   const handleClickData = (e) => {
     setDestination(e);

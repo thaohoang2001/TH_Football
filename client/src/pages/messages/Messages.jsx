@@ -35,23 +35,8 @@ const Messages = () => {
     mutation.mutate(id);
   };
 
-  const handleCreate = async (c) => {
-    const staffId = c.staffId;
-    const customerId = c.customerId;
-    const id = staffId + customerId;
 
-    try {
-      const res = await axios.get(`/conversations/single/${id}`);
-      navigate(`/message/${res.data.id}`);
-    } catch (err) {
-      if (err.response.status === 404) {
-        const res = await axios.post(`/conversations`, {
-          to: user.role === "admin" ? customerId : staffId,
-        });
-        navigate(`/message/${res.data.id}`);
-      }
-    }
-  };
+
 
   return (
     <div>
@@ -77,6 +62,7 @@ const Messages = () => {
                 <tr>
                   <th>{user.role === "admin" ? "Admin" : "Customer"}</th>
                   {console.log(user.role)}
+                  <th>User Name</th>
                   <th>Last Message</th>
                   <th>Date</th>
                   <th>Action</th>
@@ -85,12 +71,13 @@ const Messages = () => {
                   <tr
                     className={
                       ((user.role === "admin" && !c.readByStaff) ||
-                        (!user.role === "admin" && !c.readByCustomer)) &&
+                        (user.role === "customer" && !c.readByCustomer)) &&
                       "active"
                     }
                     key={c.id}
                   >
                     <td>{user.role === "admin" ? c.customerId : c.staffId}</td>
+                    <td>{user.username}</td>
                     <td>
                       <Link to={`/message/${c.id}`} className="link">
                         {c?.lastMessage?.substring(0, 100)}...
@@ -98,12 +85,13 @@ const Messages = () => {
                     </td>
                     <td>{moment(c.updatedAt).fromNow()}</td>
                     <td>
-                      {((user.role === "admin" && !c.readByStaff) ||
-                        (!user.role === "admin" && !c.readByCustomer)) && (
+                      {((user.role === "admin"  && !c.readByStaff) ||
+                        (user.role === "customer" && !c.readByCustomer)) && (
                         <button onClick={() => handleRead(c.id)}>
                           Mark as Read
                         </button>
                       )}
+                    
                     </td>
                     
                   </tr>

@@ -45,9 +45,14 @@ export const getReviews = async (req, res, next) => {
     next(err);
   }
 };
+
 export const deleteReview = async (req, res, next) => {
   try {
+      await Review.findByIdAndDelete(
+          req.params.id
+      );
+      res.status(200).json("Review has been deleted");
   } catch (err) {
-    next(err);
+      next(err);
   }
-};
+}

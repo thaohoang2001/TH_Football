@@ -4,16 +4,18 @@ import React from "react";
 import "./review.css";
 
 const Review = ({ review }) => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: [review.userId],
+    queryFn: () =>
+      axios.get(`/users/${review.userId}`).then((res) => {
+        return res.data;
+      }),
+  });
 
-  const { isLoading, error, data } = useQuery(
-    {
-      queryKey: [review.userId],
-      queryFn: () =>
-        axios.get(`/users/${review.userId}`).then((res) => {
-          return res.data;
-        }),
-    },
-  );
+  const handleDelete = async () => {
+    const res = await axios.delete(`/reviews/${review.id}`)
+    console.log(res);
+  }
 
   return (
     <div className="review">
@@ -49,6 +51,9 @@ const Review = ({ review }) => {
         <span>{review.star}</span>
       </div>
       <p>{review.desc}</p>
+      {/* <div className="buttonDelete">
+        <button className="btnDelete" onClick={() => handleDelete(review._id)}>Delete</button>
+      </div> */}
     </div>
   );
 };
