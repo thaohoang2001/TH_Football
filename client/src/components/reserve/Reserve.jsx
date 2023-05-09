@@ -34,6 +34,7 @@ const Reserve = ({ setOpen, pitchId }) => {
   const [selectdata, setselectdata] = useState([]);
 
   const { data } = useFetch(`/pitchs/childPitch/${pitchId}`);
+
   useEffect(() => {
     if (data) setselectdata(data);
     console.log(data);
@@ -54,16 +55,25 @@ const Reserve = ({ setOpen, pitchId }) => {
     return dates;
   };
 
-  const handleOpponent = async (e, childPitchId) => {
+  console.log(dates);
+
+  const handleOpponent = async (e, childPitchId, title, price) => {
     e.preventDefault();
     try {
-      const resp = await axios.post("/matchings", {
-        ...filterChildPitch,
-        childPitchId: childPitchId,
-        userId: user._id,
-      });
-      console.log(resp);
-      
+
+        const resp = await axios.post("/matchings", {
+          ...filterChildPitch,
+          childPitchId: childPitchId,
+          userId: user._id,
+          userName: user.username,
+          userImage: user.img,
+          childPitchName: title,
+          priceChildPitch: price,
+          dateChildPitch: dates[0].startDate,
+        });
+        console.log(resp);
+        navigate("/matching")
+
     } catch (e) {
       console.log(e);
     }
@@ -94,20 +104,20 @@ const Reserve = ({ setOpen, pitchId }) => {
       findMatch: !prev.findMatch,
     }));
 
-    const payload = {
-      findMatch: !filterChildPitch.findMatch,
-      timeFrame: filterChildPitch.timeFrame,
-    };
+    // const payload = {
+    //   findMatch: !filterChildPitch.findMatch,
+    //   timeFrame: filterChildPitch.timeFrame,
+    // };
 
-    //call api
-    try {
-      console.log(filterChildPitch);
-      const res = await axios.post("/childPitchs/filter", payload);
-      console.log(res);
-      setselectdata(res.data)
-    } catch (err) {
-      console.log(err);
-    }
+    // //call api
+    // try {
+    //   console.log(filterChildPitch);
+    //   const res = await axios.post("/childPitchs/filter", payload);
+    //   console.log(res);
+    //   setselectdata(res.data)
+    // } catch (err) {
+    //   console.log(err);
+    // }
     // fetch list childpitch for find opponent
   };
 
@@ -220,7 +230,7 @@ const Reserve = ({ setOpen, pitchId }) => {
               </div>
               <div className="rDesc">
                 <button
-                  onClick={(e) => handleOpponent(e, item._id)}
+                  onClick={(e) => handleOpponent(e, item._id, item.title, item.price)}
                   className="rButton"
                 >
                   Book

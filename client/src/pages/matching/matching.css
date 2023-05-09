@@ -34,17 +34,14 @@ body {
   background-color: var(--color-bg-secondary);
 }
 
-.container {
+.containerMatching {
 	position: absolute;
 	margin-top: 50px;
-	/* top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0; */
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	/* justify-content: space-between; */
 	align-items: center;
+  flex-direction: column;
   }
   
 
@@ -55,6 +52,7 @@ body {
   min-width: 600px;
   border-radius: 10px;
   box-shadow: 0 0 2px 0 rgba(48, 48, 48, 0.1), 0 4px 4px 0 rgba(48, 48, 48, 0.1);
+  margin-bottom: 50px;
 }
 
 .match-header {
@@ -86,7 +84,8 @@ body {
 .match-tournament {
   display: flex;
   font-weight: 600;
-  margin-left: 220px;
+  /* justify-content: space-between; */
+  margin-left: 115px;
 }
 .match-tournament img {
   width: 20px;
@@ -157,8 +156,8 @@ body {
   align-items: center;
 }
 .match-score-number {
-  font-size: 48px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 400;
   line-height: 1;
 }
 .match-score-number--leading {
@@ -174,7 +173,7 @@ body {
 }
 .match-time-lapsed {
   color: #DF9443;
-  font-size: 14px;
+  font-size: 30px;
   font-weight: 600;
   margin-top: 8px;
 }
@@ -209,4 +208,10 @@ body {
   color: rgba(255, 255, 255, 0.9);
   font-size: 14px;
   box-shadow: 0 4px 8px 0 rgba(48, 48, 48, 0.25);
+  cursor: pointer;
+  transition: background-color 1s;
+}
+
+.match-bet-place:hover {
+  background-color: lightgray;
 }

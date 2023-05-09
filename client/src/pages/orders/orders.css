@@ -3,15 +3,15 @@
   justify-content: center;
   color: #555;
 }
-.orders .container {
+.orders .containerOders {
   width: 1400px;
   padding: 50px 0px;
 }
-.orders .container .title {
+.orders .containerOders .titles {
   display: flex;
   justify-content: space-between;
 }
-.orders .container .title button {
+.orders .containerOders .titles button {
   background-color: #1dbf73;
   color: white;
   font-weight: 500;
@@ -19,35 +19,63 @@
   padding: 10px;
   cursor: pointer;
 }
-.orders .container table {
+.orders .containerOders table {
   width: 100%;
 }
-.orders .container table tr {
+.orders .containerOders table tr {
   height: 50px;
 }
-.orders .container table tr th {
-  text-align: left;
+.orders .containerOders table tr th {
+  text-align: center;
 }
-.orders .container table tr td sup {
+
+.orders .containerOders table td {
+  text-align: center;
+}
+
+.orders .containerOders table tr td sup {
   font-size: 12px;
 }
-.orders .container table tr td .image {
-  width: 50px;
-  height: 25px;
-  object-fit: cover;
-}
-.orders .container table tr td .message {
-  width: 25px;
-  cursor: pointer;
-}
-.orders .container table tr:nth-child(even) {
+
+.orders .containerOders table tr:nth-child(even) {
   background-color: #1dbf730f;
+}
+
+.tdName {
+  width: 25%;
+}
+
+.tdTimeFrame {
+  width: 15%;
+}
+
+.tdPrice {
+  width: 15%;
+}
+
+.tdDate {
+  width: 15%;
 }
 
 .deleteButtonOrder {
   padding: 2px 5px;
   border-radius: 5px;
-  color: crimson;
+  background-color: crimson;
+  color: white;
   border: 1px dotted rgba(220, 20, 60, 0.6);
   cursor: pointer;
+  width: 10%;
+}
+
+.buyButtonOrder {
+  background-color: var(--color-theme-primary);
+  border-radius: 6px;
+  padding: 10px 48px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  box-shadow: 0 4px 8px 0 rgba(48, 48, 48, 0.25);
+  cursor: pointer;
+  transition: background-color 1s;
+  width: 10%;
+
 }

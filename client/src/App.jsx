@@ -86,7 +86,7 @@ function App() {
         },
         {
           path: "/matching",
-          element: <MatchingShared />,
+          element: <Matching />,
         },
       ],
     },

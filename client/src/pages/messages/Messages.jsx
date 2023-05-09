@@ -36,8 +36,6 @@ const Messages = () => {
   };
 
 
-
-
   return (
     <div>
       <Navbar />
@@ -48,19 +46,19 @@ const Messages = () => {
         ) : error ? (
           "error"
         ) : (
-          <div className="container">
+          <div className="containerMessages">
             {/* <div className="title">
               <h1>Messages</h1>
             </div> */}
-            <div className="btnTitle">
+            <div className="btnTitles">
               <Link to = {"/createMessage"}>
                 <button className="btnCreate">Create Message</button>
               </Link>
             </div>
-            <table>
-              <tbody>
-                <tr>
-                  <th>{user.role === "admin" ? "Admin" : "Customer"}</th>
+            <table className="tableMessage">
+              <tbody className="tbodyMessage">
+                <tr className="trMessage">
+                  <th >{user.role === "admin" ? "Admin" : "Customer"}</th>
                   {console.log(user.role)}
                   <th>User Name</th>
                   <th>Last Message</th>

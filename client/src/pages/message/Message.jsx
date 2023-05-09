@@ -45,7 +45,7 @@ const Message = () => {
       <Navbar />
       <Header type="list" />
       <div className="message">
-        <div className="container">
+        <div className="containerMessage">
           <span className="breadcrumbs">
             <Link to="/messages">Messages</Link>
           </span>

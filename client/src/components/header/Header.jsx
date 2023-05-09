@@ -19,10 +19,14 @@ import DistrictData from "../../districtData.json";
 import useFetch from "../../hooks/useFetch";
 
 const Header = ({ type }) => {
+  const { data } = useFetch("/pitchs");
+
+  const dataDistrict = DistrictData;
+
   const [filteredData, setFilteredData] = useState([]);
   const [destination, setDestination] = useState("");
 
-  const { data } = useFetch("/pitchs");
+  const [errorEmpty, setErrorEmpty] = useState(false);
 
   const [openDate, setOpenDate] = useState(false);
   const [dates, setDates] = useState([
@@ -37,7 +41,7 @@ const Header = ({ type }) => {
   const handleFilter = (e) => {
     const searchWord = e.target.value;
     setDestination(searchWord);
-    const newFilter = data.filter((value) => {
+    const newFilter = dataDistrict.filter((value) => {
       return value.district.toLowerCase().includes(searchWord.toLowerCase());
     });
 
@@ -47,7 +51,6 @@ const Header = ({ type }) => {
       setFilteredData(newFilter);
     }
   };
-
 
   const handleClickData = (e) => {
     setDestination(e);
@@ -60,8 +63,12 @@ const Header = ({ type }) => {
   const { dispatch } = useContext(SearchContext);
 
   const handleSearch = () => {
-    dispatch({ type: "NEW_SEARCH", payload: { destination, dates } });
-    navigate("/pitchs", { state: { destination, dates } });
+    if (destination.length == 0) {
+      setErrorEmpty(true);
+    } else {
+      dispatch({ type: "NEW_SEARCH", payload: { destination, dates } });
+      navigate("/pitchs", { state: { destination, dates } });
+    }
   };
 
   return (
@@ -121,14 +128,13 @@ const Header = ({ type }) => {
                 </div>
 
                 {filteredData.length != 0 && (
-                  <div className="dataResult" >
-                    {filteredData.map((value, key) => {
+                  <div className="dataResult">
+                    {filteredData.map((value) => {
                       return (
                         <span
                           className="dataItem"
                           target="_blank"
                           onClick={() => handleClickData(value.district)}
-                          // {setopenSlide(!openSlide)}
                         >
                           {value.district}
                         </span>
@@ -161,6 +167,15 @@ const Header = ({ type }) => {
                 </button>
               </div>
             </div>
+            {errorEmpty && destination.length <= 0 ? (
+              <div className="headerError">
+                <label className="headerEmpty">
+                  The destination is not empty
+                </label>
+              </div>
+            ) : (
+              ""
+            )}
           </>
         )}
       </div>

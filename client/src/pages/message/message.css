@@ -2,22 +2,22 @@
   display: flex;
   justify-content: center;
 }
-.message .container {
+.message .containerMessage {
   width: 100%;
   margin: 50px;
 }
 
-.message .container a {
+.message .containerMessage a {
   color: black;
-  
 }
 
-.message .container .breadcrumbs {
-  font-weight: 300;
+.message .containerMessage .breadcrumbs {
+  font-weight: 300 bold;
   font-size: 13px;
   color: #555;
+  text-decoration: underline;
 }
-.message .container .messages {
+.message .containerMessage .messages {
   margin: 30px 0px;
   padding: 100px;
   display: flex;
@@ -26,29 +26,29 @@
   height: 500px;
   overflow: scroll;
 }
-.message .container .messages .item {
+.message .containerMessage .messages .item {
   display: flex;
   gap: 20px;
   max-width: 600px;
   font-size: 18px;
 }
-.message .container .messages .item.owner {
+.message .containerMessage .messages .item.owner {
   flex-direction: row-reverse;
   align-self: flex-end;
 }
-.message .container .messages .item.owner p {
+.message .containerMessage .messages .item.owner p {
   max-width: 500px;
   border-radius: 20px 0px 20px 20px;
   background-color: royalblue;
   color: white;
 }
-.message .container .messages .item img {
+.message .containerMessage .messages .item img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
-.message .container .messages .item p {
+.message .containerMessage .messages .item p {
   max-width: 500px;
   padding: 20px;
   background-color: #f4f1f1;
@@ -56,24 +56,24 @@
   color: gray;
   font-weight: 300;
 }
-.message .container hr {
+.message .containerMessage hr {
   height: 0;
   border: 0.5px solid #e8e6e6;
   margin-bottom: 20px;
 }
-.message .container .write {
+.message .containerMessage .write {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.message .container .write textarea {
+.message .containerMessage .write textarea {
   width: 80%;
   height: 100px;
   padding: 10px;
   border: 1px solid lightgray;
   border-radius: 10px;
 }
-.message .container .write button {
+.message .containerMessage .write button {
   background-color: #1dbf73;
   padding: 20px;
   color: white;

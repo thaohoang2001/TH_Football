@@ -43,7 +43,7 @@ const CheckoutForm = () => {
           break;
       }
     });
-  }, [stripe]);
+  }, [stripe]); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();

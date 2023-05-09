@@ -3,25 +3,23 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
+    orderMatchId: {
+      type: String,
+    },
     childPitchId: {
       type: String,
-      required: true,
     },
     nameChildPitchOrder: {
       type: String,
-      required: true,
     },
     title: {
       type: String,
-      required: true,
     },
     price: {
       type: Number,
-      required: true,
     },
-    DateOrder: {
-      type: Date,
-      required: true,
+    TimeFrame: {
+      type: String,
     },
     isCompleted: {
       type: Boolean,
@@ -29,12 +27,9 @@ const OrderSchema = new Schema(
     },
     payment_intent: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
-  {
-    timestamps: true,
-  }
 );
 
 export default mongoose.model("Order", OrderSchema);

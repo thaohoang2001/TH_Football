@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
 }
-.messages .container {
+.messages .containerMessages {
   width: 1400px;
   padding: 50px 0px;
 }
@@ -11,7 +11,7 @@
   justify-content: space-between;
   margin-bottom: 400px;
 }
-.messages .container .title button {
+.messages .containerMessages .title button {
   background-color: #1dbf73;
   color: white;
   font-weight: 500;
@@ -20,37 +20,37 @@
   cursor: pointer;
   margin-left: 100px;
 }
-.messages .container table {
+.messages .containerMessages table {
   width: 100%;
 }
-.messages .container table tr {
+.messages .containerMessages table tr {
   height: 100px;
 }
-.messages .container table tr th {
+.messages .containerMessages table tr th {
   text-align: left;
 }
-.messages .container table tr td {
+.messages .containerMessages table tr td {
   padding: 10px;
 }
-.messages .container table tr td:first-child {
+.messages .containerMessages table tr td:first-child {
   font-weight: 500;
 }
-.messages .container table tr td:nth-child(2),
-.messages .container table tr td:nth-child(3) {
+.messages .containerMessages table tr td:nth-child(2),
+.messages .containerMessages table tr td:nth-child(3) {
   color: gray;
 }
-.messages .container table tr button {
+.messages .containerMessages table tr button {
   background-color: #1dbf73;
   color: white;
   padding: 10px;
   border: none;
   cursor: pointer;
 }
-.messages .container table tr.active {
+.messages .containerMessages table tr.active {
   background-color: #1dbf730f;
 }
 
-.messages .container a {
+.messages .containerMessages a {
   color: black;
 }
 
