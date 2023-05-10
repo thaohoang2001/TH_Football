@@ -46,7 +46,7 @@ const List = () => {
       <Header type="list" />
       <div className="listContainer">
         <div className="listWrapper">
-          <div className="headerSearchList">
+          {/* <div className="headerSearchList">
             <div className="headerSearchItemList">
               <FontAwesomeIcon icon={faLocation} className="headerIconList" />
               <input
@@ -80,7 +80,7 @@ const List = () => {
                 Search
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="listResult">
             {loading ? (

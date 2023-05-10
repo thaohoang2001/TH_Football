@@ -61,7 +61,7 @@ function App() {
           element: <Pitch />,
         },
         {
-          path: "/orders",
+          path: "/orders/:userId",
           element: <Orders />,
         },
         {
@@ -77,7 +77,7 @@ function App() {
           element: <CreateMessage />,
         },
         {
-          path: "/payment/:id",
+          path: "/payment/:ordersId",
           element: <Payment />,
         },
         {

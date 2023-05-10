@@ -7,6 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const Matching = () => {
   const { user } = useContext(AuthContext);
@@ -22,7 +23,12 @@ const Matching = () => {
     console.log(data);
   }, [data]);
 
-  const handleMatching = async (orderMatchId, userIdMatch, findMatch) => {
+  const handleMatching = async (
+    orderMatchId,
+    userIdMatch,
+    findMatch,
+    userId
+  ) => {
     try {
       if (!userIdMatch && findMatch == true) {
         const res = await axios.put(`/matchings/${orderMatchId}`, {
@@ -31,19 +37,32 @@ const Matching = () => {
           userMatchImage: user.img,
         });
         console.log(res);
-        setdataselect(res.data)
-        const resp = await axios.post(`/orders/${orderMatchId}`)
+        setdataselect(res.data);
+        const resp = await axios.post(`/orders/${orderMatchId}`, {userId: userId});
         console.log(resp);
-        navigate("/orders")
+        toast.success("Matching successfully!!!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        navigate(`/orders/${userId}`);
       } else {
-        toast.error("Deo cho join day!!!", {
+        toast.error("Do not allow matching!!!", {
           position: toast.POSITION.TOP_RIGHT,
         });
       }
-      
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleBooking = async (orderMatchId, userId) => {
+    const resp = await axios.post(`/orders/${orderMatchId}`, {userId: userId});
+    console.log(resp);
+    toast.success("Booking the childPitch successfully!!!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    const res = await axios.delete(`/matchings/${orderMatchId}`);
+    console.log(res);
+    navigate(`/orders/${userId}`);
   };
 
   return (
@@ -76,7 +95,7 @@ const Matching = () => {
                   <div className="match-details">
                     <div className="match-score">
                       <span className="match-score-number match-score-number--leading">
-                       {item.dateChildPitch}
+                        {moment(item.dateChildPitch).format("DD-MM-YYYY")}
                       </span>
                     </div>
                     <div className="match-score">
@@ -90,12 +109,60 @@ const Matching = () => {
                       </span>
                     </div>
 
-                    <button
+                    {item.findMatch == true && !item.userIdMatch ? (
+                      <div className="match-score">
+                        <span className="match-status-true">
+                          Waiting Opponent
+                        </span>
+                      </div>
+                    ) : item.findMatch == true && item.userIdMatch ? (
+                      <div className="match-score">
+                        <span className="match-status-full">Matched</span>
+                      </div>
+                    ) : (
+                      <div className="match-score">
+                        <span className="match-status-false">
+                          Don't Need Opponent
+                        </span>
+                      </div>
+                    )}
+
+                    {item.findMatch == true && !item.userIdMatch && user._id != item.userId ? (
+                      <button
+                        className="match-bet-place"
+                        onClick={() =>
+                          handleMatching(
+                            item._id,
+                            item.userIdMatch,
+                            item.findMatch
+                          )
+                        }
+                      >
+                        Matching
+                      </button>
+                    ) : item.findMatch == false && user._id == item.userId ? (
+                      <button
+                        className="match-bet-book"
+                        onClick={() => handleBooking(item._id, item.findMatch, item.userId)}
+                      >
+                        Booking
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                    {/* <button
                       className="match-bet-place"
-                      onClick={() => handleMatching(item._id, item.userIdMatch, item.findMatch)}
+                      onClick={() =>
+                        handleMatching(
+                          item._id,
+                          item.userIdMatch,
+                          item.findMatch,
+                          item.userId,
+                        )
+                      }
                     >
                       Matching
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <div className="column">

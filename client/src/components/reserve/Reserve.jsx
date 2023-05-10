@@ -20,9 +20,9 @@ import {
   Switch,
 } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Reserve = ({ setOpen, pitchId }) => {
-  const id = useParams();
   const { user } = useContext(AuthContext);
   const [selectedchildPitchs, setSelectedchildPitchs] = useState([]);
 
@@ -42,25 +42,26 @@ const Reserve = ({ setOpen, pitchId }) => {
 
   const { dates } = useContext(SearchContext);
 
-  const getDatesInRange = (startDate) => {
-    const start = new Date(startDate);
+  // const getDatesInRange = (startDate) => {
+  //   const start = new Date(startDate);
 
-    const date = new Date(start.getTime());
+  //   const date = new Date(start.getTime());
 
-    const dates = [];
+  //   const dates = [];
 
-    dates.push(new Date(date).getTime());
-    date.setDate(date.getDate() + 1);
+  //   dates.push(new Date(date).getTime());
+  //   date.setDate(date.getDate() + 1);
 
-    return dates;
-  };
+  //   return dates;
+  // };
 
+
+  
   console.log(dates);
 
   const handleOpponent = async (e, childPitchId, title, price) => {
     e.preventDefault();
     try {
-
         const resp = await axios.post("/matchings", {
           ...filterChildPitch,
           childPitchId: childPitchId,
@@ -72,6 +73,9 @@ const Reserve = ({ setOpen, pitchId }) => {
           dateChildPitch: dates[0].startDate,
         });
         console.log(resp);
+        toast.success("Book the childPitch Successfully!!!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
         navigate("/matching")
 
     } catch (e) {
@@ -79,46 +83,14 @@ const Reserve = ({ setOpen, pitchId }) => {
     }
   };
 
-  const alldates = getDatesInRange(dates[0].startDate);
 
   const navigate = useNavigate();
-
-  const handleClick = async () => {
-    try {
-      await Promise.all(
-        selectedchildPitchs.map((childPitchId) => {
-          const res = axios.put(`/childPitchs/${childPitchId}`, {
-            dates: alldates,
-          });
-          return res.data;
-        })
-      );
-      setOpen(false);
-      navigate(`/payment/${id}`);
-    } catch (err) {}
-  };
 
   const handleFindMatch = async () => {
     setFilterChildPitch((prev) => ({
       ...prev,
       findMatch: !prev.findMatch,
     }));
-
-    // const payload = {
-    //   findMatch: !filterChildPitch.findMatch,
-    //   timeFrame: filterChildPitch.timeFrame,
-    // };
-
-    // //call api
-    // try {
-    //   console.log(filterChildPitch);
-    //   const res = await axios.post("/childPitchs/filter", payload);
-    //   console.log(res);
-    //   setselectdata(res.data)
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    // fetch list childpitch for find opponent
   };
 
   const ITEM_HEIGHT = 48;

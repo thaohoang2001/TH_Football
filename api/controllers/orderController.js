@@ -31,10 +31,11 @@ export const createOrder = async (req, res, next) => {
   const newOrders = new Order({
     orderMatchId: orderMatch._id,
     childPitchId: orderMatch.childPitchId,
+    userId: orderMatch.userId,
     nameChildPitchOrder: orderMatch.childPitchName,
     price: orderMatch.priceChildPitch,
     TimeFrame: orderMatch.timeFrame,
-    // DateOrder: childPitch.DateChildPitch,
+    DateOrder: orderMatch.dateChildPitch,
   })
   await newOrders.save();
   console.log("newOrders: ", newOrders);
@@ -71,13 +72,23 @@ export const getOrders = async (req, res, next) => {
   }
 }
 
+export const getOrder = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const orders = await Order.find({userId: userId});
+    res.status(200).json(orders);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const deleteOrder = async (req, res, next) => {
   try {
-      await Order.findByIdAndDelete(
-          req.params.id
-      );
-      res.status(200).json("Order has been deleted");
+    await Order.findByIdAndDelete(
+      req.params.id
+    );
+    res.status(200).json("Order has been deleted");
   } catch (err) {
-      next(err);
+    next(err);
   }
 }

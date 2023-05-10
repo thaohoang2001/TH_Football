@@ -156,7 +156,7 @@ body {
   align-items: center;
 }
 .match-score-number {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1;
 }
@@ -214,4 +214,39 @@ body {
 
 .match-bet-place:hover {
   background-color: lightgray;
+}
+
+.match-bet-book {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  background-color: var(--color-theme-primary);
+  border-radius: 6px;
+  padding: 10px 48px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  box-shadow: 0 4px 8px 0 rgba(48, 48, 48, 0.25);
+  cursor: pointer;
+  transition: background-color 1s;
+}
+
+.match-bet-book:hover {
+  background-color: lightgray;
+}
+
+.match-status-true {
+  color: yellowgreen;
+  font-size: 12px;
+}
+
+.match-status-false {
+  color: gray;
+  font-size: 12px;
+}
+
+.match-status-full {
+  color: green;
+  font-size: 12px;
 }

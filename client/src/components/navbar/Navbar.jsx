@@ -20,7 +20,7 @@ const Navbar = () => {
   }
   
   const handleClickCart = async () => {
-    navigate("/orders");
+    navigate(`/orders/${user._id}`);
   }
 
   return (

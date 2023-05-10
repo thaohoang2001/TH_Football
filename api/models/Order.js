@@ -9,6 +9,9 @@ const OrderSchema = new Schema(
     childPitchId: {
       type: String,
     },
+    userId: {
+      type: String,
+    },
     nameChildPitchOrder: {
       type: String,
     },

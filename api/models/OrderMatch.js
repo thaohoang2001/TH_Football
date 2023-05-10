@@ -35,7 +35,7 @@ const OrderMatchSchema = new mongoose.Schema({
         ref: 'childPitch',
     },
     dateChildPitch: {
-        type: String,
+        type: Date,
     },
     priceChildPitch: {
         type: Number,

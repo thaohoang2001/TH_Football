@@ -17,6 +17,7 @@ import { SearchContext } from "../../context/SearchContext";
 import { Link } from "react-router-dom";
 import DistrictData from "../../districtData.json";
 import useFetch from "../../hooks/useFetch";
+import { toast } from "react-toastify";
 
 const Header = ({ type }) => {
   const { data } = useFetch("/pitchs");
@@ -65,6 +66,9 @@ const Header = ({ type }) => {
   const handleSearch = () => {
     if (destination.length == 0) {
       setErrorEmpty(true);
+      toast.error("The destination is not empty!!!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } else {
       dispatch({ type: "NEW_SEARCH", payload: { destination, dates } });
       navigate("/pitchs", { state: { destination, dates } });

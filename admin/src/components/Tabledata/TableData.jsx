@@ -13,7 +13,7 @@ import {
   DialogContentText,
 } from "@mui/material";
 
-const TableData = ({ columns, params }) => {
+const TableData = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
@@ -54,7 +54,6 @@ const TableData = ({ columns, params }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const actionColumn = [
     {
