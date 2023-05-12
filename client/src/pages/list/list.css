@@ -95,7 +95,7 @@
 .headerSearchList {
   height: 55px;
   background-color: white;
-  border: 3px solid #febb02;
+  border: 1px solid #febb02;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -103,6 +103,11 @@
   position: fixed;
   width: 100%;
   max-width: 1024px;
+  position: absolute;
+}
+
+.TitleHeader {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .headerIconList {
@@ -123,4 +128,49 @@
 .headerSearchTextList {
   color: lightgray;
   cursor: pointer;
+}
+
+
+
+.listNotFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* background-color: #5ca3dd93; */
+}
+
+.listImageNotFound {
+  border-radius: 8px;
+  height: 200px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.listImageNotFound:hover {
+  opacity: 0.5;
+}
+
+
+.listTitleTwo {
+  font-size: 40px;
+  margin: 20px;
+}
+
+.listPara {
+  font-size: 18px;
+  margin: 5px;
+}
+
+.listPara:last-of-type {
+  margin-bottom: 35px;
+}
+
+.listLink {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.listLink:hover {
+  opacity: 0.5;
 }

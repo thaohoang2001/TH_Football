@@ -8,7 +8,7 @@ router.get('/', getOrders)
 router.get('/:userId', getOrder)
 router.post('/:orderMatchId', createOrder)
 router.post("/create-payment-intent/:ordersId", intent)
-router.put("/", confirm)
+router.put("/:id", confirm)
 router.delete("/:id", deleteOrder)
 
 export default router

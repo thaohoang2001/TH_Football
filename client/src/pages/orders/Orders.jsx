@@ -15,6 +15,7 @@ import {
   DialogContentText,
 } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const Orders = () => {
     try {
       if (idDelete) {
         const res = await axios.delete(`/orders/${idDelete}`);
+        navigate("/matchings");
         if (res) {
           handleClose();
           reFetch();
@@ -64,7 +66,16 @@ const Orders = () => {
   };
 
   const handleBuy = (ordersId) => {
-    navigate(`/payment/${ordersId}`)
+    if (ordersId) {
+      navigate(`/payment/${ordersId}`);
+      toast.success("Create success payment!!!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else {
+      toast.error("tutu chua lam` dc!!!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   return (
@@ -88,28 +99,45 @@ const Orders = () => {
                   <th>Price</th>
                   <th>TimeFrame</th>
                   <th>DateOder</th>
+                  <th>Confirm</th>
+                  <th>Action</th>
                   <th>Action</th>
                 </tr>
-                {list.length >0 && list.map((order) => (
-                  <tr key={order._id}>
-                    <td className="tdName">{order.nameChildPitchOrder}</td>
-                    <td className="tdPrice">${order.price}</td>
-                    <td className="tdTimeFrame">{order.TimeFrame}</td>
-                    <td className="tdDate">
-                      {moment(order.dateChildPitch).format("DD-MM-YYYY")}
-                    </td>
-                    <td
-                      className="deleteButtonOrder"
-                      // onClick={() => handleDelete(order._id)}
-                      onClick={() => handleClickOpen(order._id)}
-                    >
-                      Delete
-                    </td>
-                    <td className="buyButtonOrder" onClick={handleBuy}>
-                      Buy
-                    </td>
-                  </tr>
-                ))}
+                {list.length > 0 &&
+                  list.map((order) => (
+                    <tr key={order._id}>
+                      <td className="tdName">{order.nameChildPitchOrder}</td>
+                      <td className="tdPrice">${order.price}</td>
+                      <td className="tdTimeFrame">{order.TimeFrame}</td>
+                      <td className="tdDate">
+                        {moment(order.dateChildPitch).format("DD-MM-YYYY")}
+                      </td>
+                      {order.isCompleted ? (
+                        <td className="tdConfirm">Confirm</td>
+                      ) : (
+                        <td className="tdUnconfirmed">Unconfirmed</td>
+                      )}
+                      <td
+                        className="deleteButtonOrder"
+                        // onClick={() => handleDelete(order._id)}
+                        onClick={() =>
+                          handleClickOpen(order._id, order.orderMatchId)
+                        }
+                      >
+                        Delete
+                      </td>
+                      <td
+                        className="buyButtonOrder"
+                        onClick={() => handleBuy(order._id)}
+                      >
+                        Buy
+                      </td>
+
+                      {/* <Link to={`/payment/${idDelete}`}>
+                        <td className="buyButtonOrder">Buy</td>
+                      </Link> */}
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

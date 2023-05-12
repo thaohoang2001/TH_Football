@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
 }
 
@@ -150,6 +150,20 @@
   transform-origin: 0px 10.2px;
   -webkit-animation: loading 2s infinite ease;
   animation: loading 2s infinite ease;
+}
+
+.topTitle {
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+}
+
+.Title {
+  color: rgb(58, 58, 58);
+  font-size: 20px;
+  margin-left: 600px;
 }
 
 @keyframes loading {

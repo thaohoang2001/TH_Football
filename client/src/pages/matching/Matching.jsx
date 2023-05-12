@@ -43,7 +43,7 @@ const Matching = () => {
         toast.success("Matching successfully!!!", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        navigate(`/orders/${userId}`);
+        navigate(`/orders/${user._id}`);
       } else {
         toast.error("Do not allow matching!!!", {
           position: toast.POSITION.TOP_RIGHT,
@@ -61,8 +61,8 @@ const Matching = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
     const res = await axios.delete(`/matchings/${orderMatchId}`);
-    console.log(res);
-    navigate(`/orders/${userId}`);
+    // console.log(res);
+    navigate(`/orders/${user._id}`);
   };
 
   return (

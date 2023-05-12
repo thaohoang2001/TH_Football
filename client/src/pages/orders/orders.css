@@ -57,6 +57,16 @@
   width: 15%;
 }
 
+.tdConfirm {
+  width: 15%;
+  color: green;
+}
+
+.tdUnconfirmed {
+  width: 15%;
+  color: gray;
+}
+
 .deleteButtonOrder {
   padding: 2px 5px;
   border-radius: 5px;
@@ -77,5 +87,4 @@
   cursor: pointer;
   transition: background-color 1s;
   width: 10%;
-
 }

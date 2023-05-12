@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
@@ -25,7 +25,7 @@ const List = () => {
   const [destination, setDestination] = useState(location.state.destination);
   const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
-  
+
   const { data, loading, error, reFetch } = useFetch(
     `/pitchs?district=${destination}`
   );
@@ -39,13 +39,16 @@ const List = () => {
     navigate("/pitchs", { state: { destination, dates } });
   };
 
-
   return (
     <div>
       <Navbar />
       <Header type="list" />
       <div className="listContainer">
         <div className="listWrapper">
+
+          <div className="headerSearchList">
+            <h1 className="TitleHeader">List of Pitch</h1>
+          </div>
           {/* <div className="headerSearchList">
             <div className="headerSearchItemList">
               <FontAwesomeIcon icon={faLocation} className="headerIconList" />
@@ -85,6 +88,24 @@ const List = () => {
           <div className="listResult">
             {loading ? (
               "loading"
+            ) : !destination == data ? (
+              <div className="listNotFound">
+                <img
+                  src="https://media.istockphoto.com/id/1291928983/vector/black-oops-thin-line-icon.jpg?s=612x612&w=0&k=20&c=CI7dqqM7qYmHrxosfrBfpWBINJzLvB0wnL9mIw49vjo="
+                  className="listImageNotFound"
+                ></img>
+                <h3 className="listTitleTwo">
+                  Oops, nothing pitch has district of input here...
+                </h3>
+                <p className="listPara">Please Check the input</p>
+                <p className="listPara">
+                  Otherwise,
+                  <Link to={"/"}>
+                    <a className="listLink"> Click here </a>
+                  </Link>
+                  to redirect homepage to Search again.
+                </p>
+              </div>
             ) : (
               <>
                 {data.map((item) => (
