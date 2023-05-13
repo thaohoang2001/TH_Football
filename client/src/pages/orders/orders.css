@@ -67,6 +67,17 @@
   color: gray;
 }
 
+.tdMatching {
+  width: 15%;
+  color: var(--color-theme-primary);
+
+}
+
+.tdNoMatching {
+  width: 15%;
+  color: gray;
+}
+
 .deleteButtonOrder {
   padding: 2px 5px;
   border-radius: 5px;

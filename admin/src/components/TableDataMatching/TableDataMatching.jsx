@@ -1,4 +1,4 @@
-import "./tableData.css";
+import "./tableDataMatching.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import {
   DialogContentText,
 } from "@mui/material";
 
-const TableData = ({ columns }) => {
+const TableDataMatching = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
@@ -27,9 +27,9 @@ const TableData = ({ columns }) => {
 
   const handleDelete = async () => {
     try {
-      if(idDelete) {
+      if (idDelete) {
         const resp = await axios.delete(`/${path}/${idDelete}`);
-        if(resp) {
+        if (resp) {
           handleClose();
           reFetch();
         }
@@ -48,7 +48,7 @@ const TableData = ({ columns }) => {
 
   const handleClickOpen = (idRow) => {
     setOpen(true);
-    setidDelete(idRow)
+    setidDelete(idRow);
   };
 
   const handleClose = () => {
@@ -63,17 +63,16 @@ const TableData = ({ columns }) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link
+            {/* <Link
               to={`/${path}/update/${params?.id} `}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">Update</div>
-            </Link>
+            </Link> */}
             <div
               className="deleteButton"
               onClick={() => handleClickOpen(params.row._id)}
               // onClick={() => handleDelete(params.row._id)}
-              
             >
               Delete
             </div>
@@ -90,12 +89,7 @@ const TableData = ({ columns }) => {
   return (
     <div>
       <div className="TableData">
-        <div className="TableDataTitle">
-          {path}
-          <Link to={`/${path}/new`} className="link">
-            Add New
-          </Link>
-        </div>
+
         <DataGrid
           className="datagrid"
           rows={list}
@@ -104,6 +98,7 @@ const TableData = ({ columns }) => {
           rowsPerPageOptions={[9]}
           getRowId={(row) => row._id}
         />
+
         <Dialog
           open={open}
           onClose={handleClose}
@@ -130,4 +125,4 @@ const TableData = ({ columns }) => {
   );
 };
 
-export default TableData;
+export default TableDataMatching;

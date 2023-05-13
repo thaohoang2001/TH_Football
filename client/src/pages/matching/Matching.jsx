@@ -38,7 +38,8 @@ const Matching = () => {
         });
         console.log(res);
         setdataselect(res.data);
-        const resp = await axios.post(`/orders/${orderMatchId}`, {userId: userId});
+        
+        const resp = await axios.post(`/orders/${orderMatchId}`, {userId: userId, userIdMatch: userIdMatch});
         console.log(resp);
         toast.success("Matching successfully!!!", {
           position: toast.POSITION.TOP_RIGHT,

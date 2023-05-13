@@ -25,8 +25,10 @@ const Orders = () => {
   const { data, loading, error } = useFetch(`/orders/${user._id}`);
 
   const [open, setOpen] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const [list, setList] = useState([]);
   const [idDelete, setidDelete] = useState(null);
+  const [idConfirm, setidConfirm] = useState(null);
 
   useEffect(() => {
     if (data) setList(data);
@@ -36,11 +38,14 @@ const Orders = () => {
     try {
       if (idDelete) {
         const res = await axios.delete(`/orders/${idDelete}`);
-        navigate("/matchings");
         if (res) {
           handleClose();
           reFetch();
         }
+      } else {
+        toast.error(error.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -56,23 +61,38 @@ const Orders = () => {
     }
   };
 
-  const handleClickOpen = (ordersId) => {
+  const handleClickOpenDelete = (ordersId) => {
     setOpen(true);
     setidDelete(ordersId);
+  };
+
+  const handleClickOpenConfirm = (ordersId) => {
+    setOpenConfirm(true);
+    setidConfirm(ordersId);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleBuy = (ordersId) => {
-    if (ordersId) {
-      navigate(`/payment/${ordersId}`);
-      toast.success("Create success payment!!!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
+ 
+
+  const handleBuy = async () => {
+    if (idConfirm) {
+      const res = await axios.put(`/orders/${idConfirm}`);
+      if (res) {
+        handleCloseConfirm();
+        reFetch();
+        toast.success("Confirm buy successfully!!!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
     } else {
-      toast.error("tutu chua lam` dc!!!", {
+      toast.error(error.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
@@ -99,9 +119,10 @@ const Orders = () => {
                   <th>Price</th>
                   <th>TimeFrame</th>
                   <th>DateOder</th>
+                  <th>Type Order</th>
                   <th>Confirm</th>
-                  <th>Action</th>
-                  <th>Action</th>
+                  <th>ActionDel</th>
+                  <th></th>
                 </tr>
                 {list.length > 0 &&
                   list.map((order) => (
@@ -112,30 +133,48 @@ const Orders = () => {
                       <td className="tdDate">
                         {moment(order.dateChildPitch).format("DD-MM-YYYY")}
                       </td>
+
+                      {order.findMatch == true && order.userIdMatch ? (
+                        <td className="tdMatching">Matching</td>
+                      ) : ( 
+                        <td className="tdNoMatching">No-Matching</td>
+                      )}
+
                       {order.isCompleted ? (
                         <td className="tdConfirm">Confirm</td>
                       ) : (
                         <td className="tdUnconfirmed">Unconfirmed</td>
                       )}
-                      <td
-                        className="deleteButtonOrder"
-                        // onClick={() => handleDelete(order._id)}
-                        onClick={() =>
-                          handleClickOpen(order._id, order.orderMatchId)
-                        }
-                      >
-                        Delete
-                      </td>
-                      <td
-                        className="buyButtonOrder"
-                        onClick={() => handleBuy(order._id)}
-                      >
-                        Buy
-                      </td>
 
-                      {/* <Link to={`/payment/${idDelete}`}>
-                        <td className="buyButtonOrder">Buy</td>
-                      </Link> */}
+                      {order.isCompleted ? (
+                        <td className="tdPrice">Order Confirmed buy</td>
+                      ) : (
+                        <td
+                          className="deleteButtonOrder"
+                          // onClick={() => handleDelete(order._id)}
+                          onClick={() =>
+                            handleClickOpenDelete(order._id, order.orderMatchId)
+                          }
+                        >
+                          Delete
+                        </td>
+                      )}
+
+                      {order.isCompleted ? (
+                        <td className="tdPrice"></td>
+                      ) : (
+                        <td
+                          className="buyButtonOrder"
+                          onClick={() =>
+                            handleClickOpenConfirm(
+                              order._id,
+                              order.orderMatchId
+                            )
+                          }
+                        >
+                          Confirm
+                        </td>
+                      )}
                     </tr>
                   ))}
               </tbody>
@@ -153,7 +192,7 @@ const Orders = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Are you sure to delete this item?
+              Are you sure to delete this orders?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -163,7 +202,30 @@ const Orders = () => {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Dialog
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Confirm Dialog when to use Confirm!!!"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure to Confirm this orders?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirm}>Cancel</Button>
+          <Button onClick={() => handleBuy()} autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
+      
     </div>
   );
 };

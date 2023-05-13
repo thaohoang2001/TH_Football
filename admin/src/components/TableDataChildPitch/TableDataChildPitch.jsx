@@ -102,7 +102,6 @@ const TableDataChildPitch = ({ columns, params }) => {
         columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
-        checkboxSelection
         getRowId={(row) => row._id}
       />
       <Dialog

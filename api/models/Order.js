@@ -12,6 +12,9 @@ const OrderSchema = new Schema(
     userId: {
       type: String,
     },
+    userIdMatch: {
+      type: String,
+    },
     nameChildPitchOrder: {
       type: String,
     },
@@ -28,9 +31,11 @@ const OrderSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    findMatch: {
+      type: Boolean,
+    },
     payment_intent: {
       type: String,
-      // required: true,
     },
   },
 );

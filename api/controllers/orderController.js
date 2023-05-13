@@ -16,7 +16,9 @@ export const intent = async (req, res, next) => {
     automatic_payment_methods: {
       enabled: true,
     },
+    
   });
+
 
   res.status(200).send({
     clientSecret: paymentIntent.client_secret,
@@ -32,11 +34,12 @@ export const createOrder = async (req, res, next) => {
     orderMatchId: orderMatch._id,
     childPitchId: orderMatch.childPitchId,
     userId: orderMatch.userId,
+    userIdMatch: orderMatch.userIdMatch,
     nameChildPitchOrder: orderMatch.childPitchName,
     price: orderMatch.priceChildPitch,
     TimeFrame: orderMatch.timeFrame,
     DateOrder: orderMatch.dateChildPitch,
-    // payment_intent: "",
+    findMatch: orderMatch.findMatch,
   })
   await newOrders.save();
   console.log("newOrders: ", newOrders);
@@ -45,23 +48,38 @@ export const createOrder = async (req, res, next) => {
 }
 
 export const confirm = async (req, res, next) => {
+  const orderId = req.params.ordersId;
   try {
-
     const orders = await Order.findByIdAndUpdate(
-      req.params.ordersId,
-      {
-        $set: {
-          isCompleted: true,
-        },
-      },
+      orderId,
+      { $set: {isCompleted: true,} },
       { new: true }
     );
-
-    res.status(200).send("Success");
+    res.status(200).send(orders);
   } catch (err) {
     next(err);
   }
 };
+
+
+// export const confirm = async (req, res, next) => {
+//   try {
+//     const orders = await Order.findOneAndUpdate(
+//       {
+//         payment_intent: req.body.payment_intent,
+//       },
+//       {
+//         $set: {
+//           isCompleted: true,
+//         },
+//       }
+//     );
+
+//     res.status(200).send("Order has been confirmed.");
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
 export const getOrders = async (req, res, next) => {
   try {

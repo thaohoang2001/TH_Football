@@ -4,7 +4,8 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import JoinFullIcon from '@mui/icons-material/JoinFull';
+import StadiumIcon from '@mui/icons-material/Stadium';
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
@@ -42,7 +43,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/pitchs" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
+              <StadiumIcon className="icon" />
               <span>Manager Pitch</span>
             </li>
           </Link>
@@ -52,12 +53,12 @@ const Sidebar = () => {
               <span>Manager ChildPitch</span>
             </li>
           </Link>
-          {/* <Link to="/order" style={{ textDecoration: "none" }}>
+          <Link to="/matchings" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
-              <span>Orders</span>
+              <JoinFullIcon className="icon" />
+              <span>Matching</span>
             </li>
-          </Link> */}
+          </Link>
           {/* <p className="title">USEFUL</p>
           <li>
             <NotificationsNoneIcon className="icon" />

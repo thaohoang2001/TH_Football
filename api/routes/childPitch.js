@@ -19,7 +19,7 @@ router.delete("/:id/:pitchid", deleteChildPitch);
 //GET
 router.get("/:id", getChildPitch);
 //GET ALL
-router.get("/:id", getChildPitchs);
+router.get("/", getChildPitchs);
 
 router.post("/filter", postChildPitchFilter);
 

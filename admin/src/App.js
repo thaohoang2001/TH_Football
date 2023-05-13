@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import {
   childPitchColumns,
+  matchingColumns,
   pitchColumns,
   userColumns,
 } from "./datatablesource";
@@ -19,6 +20,7 @@ import UpdateChildPitch from "./pages/updateChildPitch/UpdateChildPitch";
 import ListChildPitch from "./pages/listChildPitch/ListChildPitch";
 import Update from "./pages/update/Update";
 import { ToastContainer, toast } from "react-toastify";
+import ListMatching from "./pages/listMatching/ListMatching";
 
 
 function App() {
@@ -90,14 +92,6 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
-                element={
-                  <ProtectedRoute>
-                    <Single />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="new"
                 element={
                   <ProtectedRoute>
@@ -124,14 +118,6 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
-                element={
-                  <ProtectedRoute>
-                    <Single />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="new"
                 element={
                   <ProtectedRoute>
@@ -148,6 +134,26 @@ function App() {
                 }
               />
             </Route>
+              
+            <Route path="matchings">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <ListMatching columns={matchingColumns} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="update/:idChildPitch"
+                element={
+                  <ProtectedRoute>
+                    <UpdateChildPitch />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+
           </Route>
         </Routes>
       </BrowserRouter>

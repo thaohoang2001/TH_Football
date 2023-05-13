@@ -18,9 +18,11 @@ import { Link } from "react-router-dom";
 import DistrictData from "../../districtData.json";
 import useFetch from "../../hooks/useFetch";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = ({ type }) => {
   const { data } = useFetch("/pitchs");
+  const { user } = useContext(AuthContext);
 
   const dataDistrict = DistrictData;
 
@@ -89,12 +91,18 @@ const Header = ({ type }) => {
               <span>Football</span>
             </div>
           </Link>
-          <Link to="/matching">
-            <div className="headerListItem">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-              <span>Matching</span>
-            </div>
-          </Link>
+
+          {user ? (
+            <Link to="/matching">
+              <div className="headerListItem">
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                <span>Matching</span>
+              </div>
+            </Link>
+          ) : (
+            navigate("/login")
+          )}
+
           <Link to="/messages">
             <div className="headerListItem">
               <FontAwesomeIcon icon={faMessage} />

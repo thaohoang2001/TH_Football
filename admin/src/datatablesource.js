@@ -92,7 +92,7 @@ export const pitchColumns = [
 ];
 
 export const childPitchColumns = [
-  
+
   { field: "_id", headerName: "ID", width: 70 },
   {
     field: "title",
@@ -126,4 +126,46 @@ export const childPitchColumns = [
   //   valueFormatter: params =>
   //   moment(params?.value).format("DD/MM/YYYY hh:mm A"),
   // },
+];
+
+export const matchingColumns = [
+
+  { field: "_id", headerName: "ID", width: 70 },
+  {
+    field: "userName",
+    headerName: "userName",
+    width: 100,
+  },
+  {
+    field: "userNameMatch",
+    headerName: "userNameMatch",
+    width: 150,
+  },
+  {
+    field: "childPitchName",
+    headerName: "childPitchName",
+    width: 300,
+  },
+  {
+    field: "dateChildPitch",
+    headerName: "date",
+    valueFormatter: params =>
+      moment(params?.value).format("DD/MM/YYYY"),
+    width: 150,
+  },
+  {
+    field: "priceChildPitch",
+    headerName: "price",
+    width: 100,
+  },
+  {
+    field: "timeFrame",
+    headerName: "timeFrame",
+    width: 100,
+  },
+  {
+    field: "findMatch",
+    headerName: "findMatch",
+    width: 100,
+  },
 ];
