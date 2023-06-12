@@ -11,6 +11,8 @@
 }
 
 .rContainer {
+  max-height: 615px;
+  overflow-y: auto;
   background-color: white;
   padding: 20px;
   position: relative;

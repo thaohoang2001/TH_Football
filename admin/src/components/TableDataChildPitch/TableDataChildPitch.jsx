@@ -28,14 +28,17 @@ const TableDataChildPitch = ({ columns, params }) => {
 
   const handleDelete = async (id) => {
     try {
-      if (idDelete) {
-        const resp = await axios.delete(`/${path}/${id}/${pitchId}`);
-        if (resp) {
-          handleClose();
-          reFetch();
-        }
-      }
+      // if (idDelete) {
+      //   const resp = await axios.delete(`/${path}/${id}/${pitchId}`);
+      //   if (resp) {
+      //     handleClose();
+      //     reFetch();
+      //   }
+      // }
       // setList(list.filter((item) => item._id !== id));
+
+      const resp = await axios.delete(`/${path}/${id}/${pitchId}`)
+      setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };
 

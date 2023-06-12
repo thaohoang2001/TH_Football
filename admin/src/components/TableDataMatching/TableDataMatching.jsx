@@ -82,6 +82,7 @@ const TableDataMatching = ({ columns }) => {
     },
   ];
 
+
   if (!list) {
     return <>Loading</>;
   }

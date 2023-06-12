@@ -32,7 +32,7 @@ const NewChildPitch = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/childPitchs/${pitchId}`, {
+      await axios.post(`/childPitchs/create/${pitchId}`, {
         ...info,
       });
       navigate("/childPitchs");

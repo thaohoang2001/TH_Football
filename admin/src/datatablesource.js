@@ -114,11 +114,6 @@ export const childPitchColumns = [
     headerName: "Max People",
     width: 100,
   },
-  {
-    field: "TimeFrame",
-    headerName: "Time Frame",
-    width: 100,
-  },
   // {
   //   field: "date",
   //   headerName: "Date",

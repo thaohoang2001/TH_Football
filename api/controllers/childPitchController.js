@@ -3,11 +3,18 @@ import OrderMatch from "../models/OrderMatch.js";
 import Pitch from "../models/Pitch.js";
 
 export const createChildPitch = async (req, res, next) => {
+  const pitchId = req.params.pitchid;
   const newChildPitch = new ChildPitch(req.body);
 
   try {
     const savedChildPitch = await newChildPitch.save();
-
+    try {
+      await Pitch.findByIdAndUpdate(pitchId, {
+        $push: { childPitchs: savedChildPitch._id },
+      });
+    } catch (err) {
+      next(err);
+    }
     res.status(200).json(savedChildPitch);
   } catch (err) {
     next(err);
@@ -106,7 +113,6 @@ export const postChildPitchFilter = async (req, res, next) => {
       if (element.userIdMatch == null) {
         await childPitchOrderArr.push(element.childPitchId._id)
       }
-
     }
     // orderMatch.forEach(element => {
     //   console.log("Element: ",element);
@@ -116,6 +122,7 @@ export const postChildPitchFilter = async (req, res, next) => {
       // nếu tìm sân bắt đối thì findMatch = true
       if (pitchId != null) {
         childPitch = await ChildPitch.find({ _id: { $in: childPitchOrderArr }, pitchId: pitchId });
+        
       }
       else {
         childPitch = await ChildPitch.find({ _id: { $in: childPitchOrderArr } });
@@ -126,9 +133,10 @@ export const postChildPitchFilter = async (req, res, next) => {
     else if (findMatch.toString() == 'false') {
       if (pitchId != null) {
         childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
+        console.log(childPitch);
       }
       else {
-        childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }, pitchId: pitchId });
+        childPitch = await ChildPitch.find({ _id: { $nin: childPitchOrderArr }});
       }
     }
     console.log(childPitch);

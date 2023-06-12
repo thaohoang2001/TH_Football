@@ -27,13 +27,14 @@ const Review = ({ review }) => {
         <div className="user">
           <img
             className="pp"
-            src={data.img || "https://i.ibb.co/MBtqXQ/no-avatar.gif"}
+            src={data?.img || "https://i.ibb.co/MBtqXQ/no-avatar.gif"}
             alt=""
           />
+          {console.log(data)}
           <div className="info">
-            <span>{data.username}</span>
+            <span>{data?.username}</span>
             <div className="country">
-              <span>{data.country}</span>
+              <span>{data?.country}</span>
             </div>
           </div>
         </div>

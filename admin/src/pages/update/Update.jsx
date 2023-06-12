@@ -7,11 +7,12 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Update = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState();
   const [info, setInfo] = useState({});
+  const [preview, setPreview] = useState();
+
   const { idUser } = useParams();
   const navigate = useNavigate();
-
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -36,11 +37,25 @@ const Update = ({ inputs, title }) => {
       };
 
       await axios.put(`/auth/${idUser}`, updateUser);
-      navigate("/users")
+      navigate("/users");
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (!file) {
+      setPreview(
+        "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+      );
+      return;
+    } else {
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+  }, [file]);
 
   useEffect(() => {
     (async () => {
@@ -53,6 +68,17 @@ const Update = ({ inputs, title }) => {
     })();
   }, []);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     if (idUser) {
+  //       const resp = await axios.get(`/auth/find/${idUser}`);
+  //       if (resp) {
+  //         setInfo(resp?.data);
+  //       }
+  //     }
+  //   })();
+  // }, []);
+
   console.log(info);
   return (
     <div className="new">
@@ -64,14 +90,7 @@ const Update = ({ inputs, title }) => {
         </div>
         <div className="bottom">
           <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
+            <img className="imageUpdate" src={(preview, info.img)} alt="" />
           </div>
           <div className="right">
             <form>
@@ -90,13 +109,24 @@ const Update = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input
-                    onChange={handleChange}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    id={input.id}
-                    value={info[input.id]}
-                  />
+
+                  {input.id == "password" ? (
+                    <input
+                      disabled
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      id={input.id}
+                      value={info[input.id]}
+                    />
+                  ) : (
+                    <input
+                      onChange={handleChange}
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      id={input.id}
+                      value={info[input.id]}
+                    />
+                  )}
                 </div>
               ))}
               <button onClick={handleClick}>Send</button>

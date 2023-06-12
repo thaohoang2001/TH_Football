@@ -21,8 +21,8 @@
     text-align: center;
   }
   .new .newContainer .top .left img, .new .newContainer .bottom .left img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -60,8 +60,8 @@
     border: none;
     border-bottom: 1px solid gray;
   }
-  .new .newContainer .top .right form button, .new .newContainer .bottom .right form button {
-    width: 150px;
+  .new .newContainer .top .right form .ButtonSend, .new .newContainer .bottom .right form .ButtonSend {
+    width: 200px;
     padding: 10px;
     border: none;
     background-color: teal;

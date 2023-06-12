@@ -35,6 +35,7 @@ export const userInputs = [
     type: "text",
     placeholder: "HN",
   },
+
 ];
 
 export const productInputs = [
